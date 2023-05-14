@@ -12,10 +12,12 @@ public class Computer : MonoBehaviour, IInteractable
     [SerializeField] private GameObject _desktopUI;
     public string InteractionPrompt => _prompt;
 
-    //give header to unity inspector
     [Header("Virus Properties Computer")]
     [SerializeField] private bool virusInfected = false;
     [SerializeField] private ProgressBar infectVirusProgressBar;
+
+    [Header("Dialogue Trigger")]
+    public DialogueTrigger dialogueTrigger;
 
     public bool Interact(Interactor interactor)
     {

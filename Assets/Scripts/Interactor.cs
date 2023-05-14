@@ -15,13 +15,6 @@ public class Interactor : MonoBehaviour
 
     private IInteractable _currentInteractable;
 
-    private ThirdPersonController _characterController;
-
-    private void Start()
-    {
-        _characterController = GetComponent<ThirdPersonController>();
-    }
-
     private void Update()
     {
         _colliderCount = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionRange, _colliders, 
@@ -38,7 +31,7 @@ public class Interactor : MonoBehaviour
                     Debug.Log(_currentInteractable.InteractionPrompt);
                     if (Input.GetKeyDown(KeyCode.E))
                     {
-                        StartCoroutine(InteractWithDelay());
+                        _currentInteractable.Interact(this);
                     }
                 }
             }
@@ -51,11 +44,6 @@ public class Interactor : MonoBehaviour
                 _currentInteractable = null;
             }
         }
-    }
-
-    private IEnumerator InteractWithDelay()
-    {
-        yield return _currentInteractable.Interact(this);
     }
 
     private void OnDrawGizmos()

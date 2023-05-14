@@ -1,3 +1,4 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,9 @@ public class DialogueManager : MonoBehaviour
     int activeMessage = 0;
     public static bool isActive = false;
 
+    [SerializeField] private ThirdPersonController _characterController;
+    [SerializeField] private Animator _playerAnimator;
+
     public void OpenDialogue(Message[] messages, Actor[] actors)
     {
         currentMessages = messages;
@@ -23,6 +27,11 @@ public class DialogueManager : MonoBehaviour
         isActive = true;
 
         Debug.Log("Started Conversation with " + currentActors[0].name);
+        
+        // turn off movement, animator and 'E' display
+        _characterController.setCanMove(false);
+        _playerAnimator.enabled = false;
+
         DisplayMessage();
         backgroundBox.LeanScale(Vector3.one, 0.5f).setEaseInOutExpo();
     }
@@ -38,7 +47,7 @@ public class DialogueManager : MonoBehaviour
 
         AnimateTextColor();
     }
-
+    
     public void NextMessage()
     {
         activeMessage++;
@@ -50,6 +59,11 @@ public class DialogueManager : MonoBehaviour
         {
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
+
+            // turn on movement, animator and 'E' display
+            _characterController.setCanMove(true);
+            _playerAnimator.enabled = true;
+            
             Debug.Log("Ended Conversation with " + currentActors[0].name);
         }
     }

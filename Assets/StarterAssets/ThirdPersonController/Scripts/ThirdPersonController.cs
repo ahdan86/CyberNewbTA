@@ -98,6 +98,8 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
 
+        private bool canMove = true;
+
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
@@ -158,8 +160,15 @@ namespace StarterAssets
 
             // JumpAndGravity();
             // GroundedCheck();
-            Move();
+            if(canMove)
+                Move();
+            
         }
+
+        public void setCanMove(bool canMove)
+        {
+            this.canMove = canMove;
+        } 
 
         private void LateUpdate()
         {
