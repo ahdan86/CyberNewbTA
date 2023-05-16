@@ -6,7 +6,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public bool HasFDContamined = false;
-    public bool HasFDClean = false;
+    public bool HasFDAntivirus = false;
 
     private void Update()
     {
@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            HasFDClean = !HasFDClean;
+            HasFDAntivirus = !HasFDAntivirus;
         }
     }
 }
