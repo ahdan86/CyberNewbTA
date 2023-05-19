@@ -22,7 +22,12 @@ public class ProgressBar : MonoBehaviour
             isActive = false;
         }
     }
-    
+
+    public void SetProgressValue(float value)
+    {
+        _targetFill = value;
+    }
+
     public void SetProgressActive(bool status)
     {
         isActive = status;

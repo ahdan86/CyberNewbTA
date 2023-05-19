@@ -21,6 +21,11 @@ public class BitToggle : MonoBehaviour
             GetComponentInChildren<Text>().text = "0";
     }
 
+    public void SetToggle(bool enabled)
+    {
+        isEnabled = false;
+    } 
+
     private void Awake()
     {
         GetComponent<Button>().onClick.AddListener(() =>

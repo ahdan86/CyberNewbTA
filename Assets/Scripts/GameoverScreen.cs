@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverScreen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Text moneyLeftText;
+    public static bool isOver = false;
+    public void Setup(int moneyLeft)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gameObject.SetActive(true);
+        isOver = true;
+        moneyLeftText.text = moneyLeft.ToString() + " Virus";
     }
 }
