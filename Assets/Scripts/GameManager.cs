@@ -7,11 +7,11 @@ public class GameManager : MonoBehaviour
 {
     public GameOverScreen gameOverScreen;
     public PauseScreen pauseScreen;
-    public int enemyDieCount = 0;
+    public int moneyLeft = 0;
     public void GameOver()
     {
         Time.timeScale = 0;
-        gameOverScreen.Setup(enemyDieCount);
+        gameOverScreen.Setup(moneyLeft);
         Cursor.lockState = CursorLockMode.None;
     }
 

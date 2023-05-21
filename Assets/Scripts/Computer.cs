@@ -71,6 +71,21 @@ public class Computer : MonoBehaviour, IInteractable
         _interactionPromptUI.Close();
     }
 
+    public bool getInfected()
+    {
+        return virusInfected;
+    }
+
+    public int getComputerId()
+    {
+        return computerId;
+    }
+
+    public void setInfectComputer()
+    {
+        virusInfected = true; 
+    }
+
     public void OnDestroy()
     {
         DesktopEvent.current.onInfectComputer.RemoveListener(InfectComputer);

@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf2eef786ba575448fb2592e80bafd8, type: 3}
+  m_Name: Dialogue_Quest1_Phase1_Edna 1
+  m_EditorClassIdentifier: 
+  questState: 1
+  messages:
+  - actorId: 0
+    message: Hi, Edna! I'm Gus, the new guy in the office.
+  - actorId: 1
+    message: Hey, Gus! Welcome to the team. I'm Edna, the front desk assistant. Nice
+      to meet you!
+  - actorId: 0
+    message: I'm excited to be here. Is there anything specific I should know about
+      the office?
+  - actorId: 1
+    message: Well, our CTO, Bryan, wants to meet you. Could you go to his office?
+  - actorId: 0
+    message: Sure thing, Edna! Where is his office located?
+  - actorId: 1
+    message: 'The office is right in front of my view. Straight ahead and you will
+      see him. '
+  - actorId: 0
+    message: Got it! I'll head over to Bryan's office right away. Thanks for letting
+      me know.
+  - actorId: 1
+    message: Good luck for your first day!
+  - actorId: 0
+    message: 'Thanks, Edna! I appreciate your help. '
+  actors:
+  - actorId: 0
+    name: Gus
+    sprite: {fileID: 21300000, guid: 759853e4dc46c614eb4d317668d1c604, type: 3}
+  - actorId: 1
+    name: Edna
+    sprite: {fileID: 21300000, guid: 29e250fb8661efd41bb6e04a4b1cc97f, type: 3}

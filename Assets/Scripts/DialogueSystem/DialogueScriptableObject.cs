@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueTrigger : MonoBehaviour
+[CreateAssetMenu(fileName = "Dialogue", menuName = "ScriptableObjects/Dialogue", order = 1)]
+public class DialogueScriptableObject : ScriptableObject
 {
+    public QuestState questState;
     public Message[] messages;
     public Actor[] actors;
-
-    public void StartDialogue()
-    {
-        FindObjectOfType<DialogueManager>().OpenDialogue(messages, actors);
-    }
 }
+
 
 [System.Serializable]
 public class Message

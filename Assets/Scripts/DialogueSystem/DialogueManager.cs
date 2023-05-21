@@ -19,10 +19,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private ThirdPersonController _characterController;
     [SerializeField] private Animator _playerAnimator;
 
-    public void OpenDialogue(Message[] messages, Actor[] actors)
+    public void OpenDialogue(DialogueScriptableObject dialogueObject)
     {
-        currentMessages = messages;
-        currentActors = actors;
+        currentMessages = dialogueObject.messages;
+        currentActors = dialogueObject.actors;
         activeMessage = 0;
         isActive = true;
 
