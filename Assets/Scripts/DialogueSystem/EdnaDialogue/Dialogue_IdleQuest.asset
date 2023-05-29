@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf2eef786ba575448fb2592e80bafd8, type: 3}
+  m_Name: Dialogue_IdleQuest
+  m_EditorClassIdentifier: 
+  questState: 0
+  messages:
+  - actor: {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
+    message: Hey Gus, how's your first day?
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: Still wandering around. Quite nice actually :)
+  - actor: {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
+    message: Enjoy!
+  actors:
+  - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+  - {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}

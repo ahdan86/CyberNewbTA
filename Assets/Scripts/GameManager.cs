@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; set; }
     public GameOverScreen gameOverScreen;
     public PauseScreen pauseScreen;
     public int moneyLeft = 0;

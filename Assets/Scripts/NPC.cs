@@ -5,8 +5,8 @@ using UnityEngine;
 public class NPC : MonoBehaviour, IInteractable
 {
     [SerializeField] private InteractionPromptUI _interactionPromptUI;
-    [SerializeField] private string _prompt;
-    public string InteractionPrompt => _prompt;
+    [SerializeField] private string _name;
+    public string InteractionName => _name;
 
     public DialogueTrigger dialogueTrigger;
     

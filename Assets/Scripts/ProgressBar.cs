@@ -25,7 +25,7 @@ public class ProgressBar : MonoBehaviour
 
     public void SetProgressValue(float value)
     {
-        _targetFill = value;
+        _progressBarSprite.fillAmount = value;
     }
 
     public void SetProgressActive(bool status)

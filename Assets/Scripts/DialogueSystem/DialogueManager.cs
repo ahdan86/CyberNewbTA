@@ -11,26 +11,26 @@ public class DialogueManager : MonoBehaviour
     public Text messageText;
     public RectTransform backgroundBox;
 
-    Message[] currentMessages;
-    Actor[] currentActors;
-    int activeMessage = 0;
+    private Message[] _currentMessages;
+    private Actor[] _currentActors;
+    private int _activeMessage = 0;
     public static bool isActive = false;
 
-    [SerializeField] private ThirdPersonController _characterController;
-    [SerializeField] private Animator _playerAnimator;
+    [SerializeField] private ThirdPersonController characterController;
+    [SerializeField] private Animator playerAnimator;
 
-    public void OpenDialogue(DialogueScriptableObject dialogueObject)
+    public void OpenDialogue(Dialogue dialogueObject)
     {
-        currentMessages = dialogueObject.messages;
-        currentActors = dialogueObject.actors;
-        activeMessage = 0;
+        _currentMessages = dialogueObject.messages;
+        _currentActors = dialogueObject.actors;
+        _activeMessage = 0;
         isActive = true;
 
-        Debug.Log("Started Conversation with " + currentActors[0].name);
+        Debug.Log("Started Conversation with " + _currentActors[0].name);
         
         // turn off movement, animator and 'E' display
-        _characterController.setCanMove(false);
-        _playerAnimator.enabled = false;
+        characterController.setCanMove(false);
+        playerAnimator.enabled = false;
 
         DisplayMessage();
         backgroundBox.LeanScale(Vector3.one, 0.5f).setEaseInOutExpo();
@@ -38,8 +38,8 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayMessage()
     {
-        Message message = currentMessages[activeMessage];
-        Actor actor = GetActor(message.actorId);
+        Message message = _currentMessages[_activeMessage];
+        Actor actor = GetActor(message.actor.actorId);
 
         actorImage.sprite = actor.sprite;
         actorName.text = actor.name;
@@ -50,8 +50,8 @@ public class DialogueManager : MonoBehaviour
     
     public void NextMessage()
     {
-        activeMessage++;
-        if (activeMessage < currentMessages.Length)
+        _activeMessage++;
+        if (_activeMessage < _currentMessages.Length)
         {
             DisplayMessage();
         }
@@ -60,11 +60,16 @@ public class DialogueManager : MonoBehaviour
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
+            if (_currentActors.Length > 1)
+            {
+                QuestEvent.current.Interact(_currentActors[1].name);
+            }
+
             // turn on movement, animator and 'E' display
-            _characterController.setCanMove(true);
-            _playerAnimator.enabled = true;
+            characterController.setCanMove(true);
+            playerAnimator.enabled = true;
             
-            Debug.Log("Ended Conversation with " + currentActors[0].name);
+            Debug.Log("Ended Conversation with " + _currentActors[0].name);
         }
     }
 
@@ -76,7 +81,7 @@ public class DialogueManager : MonoBehaviour
 
     Actor GetActor(int actorId)
     {
-        foreach (Actor actor in currentActors)
+        foreach (Actor actor in _currentActors)
         {
             if (actor.actorId == actorId)
             {

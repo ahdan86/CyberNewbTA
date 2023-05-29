@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf2eef786ba575448fb2592e80bafd8, type: 3}
+  m_Name: Dialogue_Quest 1_Phase 2_Bryan
+  m_EditorClassIdentifier: 
+  questState: 2
+  messages:
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: Hi, are you Mr. Bryan, the CTO of this company?
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: Yup, that's me! May I help you?
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: I'm Gus, the new intern. I've been told that to get my first task I
+      need to see you.
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: You're right. Hmmm.... I think for first day at this company, you can
+      just open the "Document for Work" for the task.
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: You can ask Frank for the file. Right now, i think he's currently at
+      some meeting.
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: ' But, I guess you can bother him for a moment'
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: Ok, thanks for the brief Mr. Bryan!
+  actors:
+  - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+  - {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}

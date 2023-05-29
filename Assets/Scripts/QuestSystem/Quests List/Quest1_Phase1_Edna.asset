@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bfa9bec1d02d684396001faca366280, type: 3}
+  m_Name: Quest1_Phase1_Edna
+  m_EditorClassIdentifier: 
+  state: 1
+  type: 1
+  questDescEng: Hey, first day at the job! Need to go to frontdesk first...
+  mustCompleted: 1
+  interactQuest: Edna

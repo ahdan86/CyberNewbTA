@@ -10,7 +10,7 @@ public class Computer : MonoBehaviour, IInteractable
 {
     [SerializeField] private InteractionPromptUI _interactionPromptUI;
     [SerializeField] private string _prompt;
-    public string InteractionPrompt => _prompt;
+    public string InteractionName => _prompt;
 
     [Header("Computer Properties")]
     [SerializeField] private bool virusInfected = false;
@@ -45,8 +45,6 @@ public class Computer : MonoBehaviour, IInteractable
     {
         DesktopEvent.current.onInfectComputer.AddListener(InfectComputer);
         DesktopEvent.current.onCleanVirus.AddListener(CleanInfected);
-
-        Debug.Log(computerId);
     }
 
     public void InfectComputer(int id)

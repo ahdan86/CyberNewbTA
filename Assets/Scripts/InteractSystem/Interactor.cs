@@ -13,7 +13,7 @@ public class Interactor : MonoBehaviour
     private readonly Collider[] _colliders = new Collider[3];
     [SerializeField] private int _colliderCount;
 
-    private IInteractable _currentInteractable;
+    public IInteractable _currentInteractable;
 
     private void Update()
     {
@@ -28,7 +28,6 @@ public class Interactor : MonoBehaviour
                 if (_currentInteractable != null)
                 {
                     _currentInteractable.SetUpPromptUI();
-                    Debug.Log(_currentInteractable.InteractionPrompt);
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         _currentInteractable.Interact(this);

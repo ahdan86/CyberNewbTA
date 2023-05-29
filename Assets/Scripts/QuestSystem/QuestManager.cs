@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,18 +6,23 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance { get; set; }
-    private Dictionary<QuestState, QuestScriptableObject> activeQuests;
+    [SerializeField] private QuestDictionary activeQuests = new();
 
     private void Awake()
     {
-        activeQuests = new Dictionary<QuestState, QuestScriptableObject>();
+        if(Instance == null)
+            Instance = this;
     }
     
-    public void StartQuest(QuestScriptableObject quest)
+    public void StartQuest(QuestWrapper quest)
     {
-        if (!activeQuests.ContainsKey(quest.state))
+        if(quest == null)
         {
-            activeQuests.Add(quest.state, quest);
+            Debug.Log("Quest is Null");
+        }
+        if (!activeQuests.ContainsKey(quest.GetState()))
+        {
+            activeQuests.Add(quest.GetState(), quest);
         }
         else
         {
@@ -24,12 +30,18 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public void CompleteQuest(QuestScriptableObject quest)
+    public void CompleteQuest(QuestWrapper quest)
     {
-        if (activeQuests.ContainsKey(quest.state))
+        if (activeQuests.ContainsKey(quest.GetState()))
         {
-            activeQuests.Remove(quest.state);
+            activeQuests.Remove(quest.GetState());
+            ObjectiveUI.Instance.UpdateQuestList();
         }
+    }
+
+    public QuestDictionary GetActiveQuests()
+    {
+        return activeQuests;
     }
 
     public bool IsQuestActive(QuestState state)

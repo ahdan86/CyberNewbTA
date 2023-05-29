@@ -31,10 +31,4 @@ public class DesktopEvent : MonoBehaviour
         Debug.Log("Event Computer id: " + id);
         onOpenDesktopUI?.Invoke(id, infected);
     }
-
-    public UnityEvent<string> onNjajal;
-    public void Njajal(string text)
-    {
-        onNjajal?.Invoke(text);
-    }
 }

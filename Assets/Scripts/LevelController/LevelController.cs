@@ -8,9 +8,9 @@ public class LevelController : MonoBehaviour
 {
     public static LevelController Instance { get; set; }
     public List<Computer> computers;
-    public List<ProgressBar> computerProgressBars;
-    public int moneyLeft;
-    
+    // public List<ProgressBar> computerProgressBars;
+    [SerializeField] private int money;
+    [SerializeField] private int moneyReducer;
 
     private void Awake()
     {
@@ -19,19 +19,26 @@ public class LevelController : MonoBehaviour
 
     private void Update()
     {
+        
+        // Infect Other Computer Functionality
        foreach(var computer in computers)
         {
-            var computerProgressBar = computerProgressBars[computer.getComputerId()];
+            // var computerProgressBar = computerProgressBars[computer.getComputerId()];
             if (computer.getInfected())
             {
-                computerProgressBar.gameObject.SetActive(true);
-                StartCoroutine(InfectProgressCoroutine(computerProgressBar));
-                // computerProgressBar[computer.getComputerId()].SetProgress(computer.getProgress());
+                //computerProgressBar.gameObject.SetActive(true);
+                //StartCoroutine(InfectProgressCoroutine(computerProgressBar));
             }
             else
             {
-                computerProgressBar.gameObject.SetActive(false);
+                //computerProgressBar.gameObject.SetActive(false);
             }
+        }
+
+        // Checking if there is infected computer
+        if (money <= 0 && computers.Any(computer => computer.getInfected()))
+        {
+            GameManager.Instance.GameOver();
         }
     }
 

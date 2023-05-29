@@ -12,18 +12,22 @@ public class BitToggle : MonoBehaviour
     public event Action<int, bool> OnToggleChanged = delegate { };
     private bool isEnabled = false;
 
-    private void HandleToggleChanged(bool enabled)
+    private void Update()
     {
-        OnToggleChanged(number, enabled);
-        if(isEnabled)
+        if (isEnabled)
             GetComponentInChildren<Text>().text = "1";
         else
             GetComponentInChildren<Text>().text = "0";
     }
 
+    private void HandleToggleChanged(bool enabled)
+    {
+        OnToggleChanged(number, enabled);
+    }
+
     public void SetToggle(bool enabled)
     {
-        isEnabled = false;
+        isEnabled = enabled;
     } 
 
     private void Awake()

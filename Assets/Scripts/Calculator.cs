@@ -16,6 +16,11 @@ public class Calculator : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        totalText.text = Total.ToString();
+    }
+
     private void Toggle_OnToggleChanged(int number, bool enabled)
     {
         if (enabled)
@@ -26,7 +31,5 @@ public class Calculator : MonoBehaviour
         {
             Total -= number;
         }
-
-        totalText.text = Total.ToString();
     }
 }

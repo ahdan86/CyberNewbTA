@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Dialogue", menuName = "ScriptableObjects/Dialogue", order = 1)]
-public class DialogueScriptableObject : ScriptableObject
+public class Dialogue : ScriptableObject
 {
     public QuestState questState;
     public Message[] messages;
@@ -14,14 +15,6 @@ public class DialogueScriptableObject : ScriptableObject
 [System.Serializable]
 public class Message
 {
-    public int actorId;
+    [FormerlySerializedAs("actorId")] public Actor actor;
     public string message;
-}
-
-[System.Serializable]
-public class Actor
-{
-    public int actorId;
-    public string name;
-    public Sprite sprite;
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,26 +9,19 @@ public class QuestScriptableObject: ScriptableObject
 {
     public QuestState state;
     public QuestType type;
-    public string questDesc;
-    public int amountCompleted = 0;
-    public int mustCompleted = 1;
+    public string questDescEng;
+    public int mustCompleted;
 
-    public bool isConditionMet()
-    {
-        switch(state)
-        {
-            case QuestState.QUEST1_PHASE1_TALK_TO_EDNA:
-                DialogueScriptableObject dialogue = Resources.Load<DialogueScriptableObject>("Dialogue/Dialogue1");
-                return true;
-            default:
-                return false;
-        }
-    }
+    [Header("Quest Interact Condition")]
+    public string interactQuest;
 }
 
 public enum QuestType : int
 {
-    INTERACT,
-    SOLVE,
+    NONE = 0,
+    INTERACT = 1,
+    SOLVE_VIRUS = 2,
+    SOLVE_PHISH = 3,
+    SOLVE_QUIZ = 4
 }
 
