@@ -12,48 +12,56 @@ public class QuestController : MonoBehaviour
 
     private void Start()
     {
-        questManager.StartQuest(starterQuest);
-        ObjectiveUI.Instance.UpdateQuestList();
         currentQuest = starterQuest;
+        questManager.StartQuest(starterQuest);
+        ObjectiveUI.Instance.UpdateObjectiveList();
     }
 
     private void Update()
     {
+        if (currentQuest.isConditionMet())
+        {
+            var nextQuest = GetNextQuest();
+            if (nextQuest == null)
+            {
+                Debug.Log("Next quest is null");
+            }
+            questManager.CompleteQuest(currentQuest);
+
+            currentQuest = nextQuest;
+            questManager.StartQuest(nextQuest);
+            
+            ObjectiveUI.Instance.UpdateObjectiveList();
+            NotificationUI.Instance.AnimatePanel("Objective Updated");
+        }
+    }
+
+    private QuestWrapper GetNextQuest()
+    {
+        Debug.Log("Masuk sini");
         if (questManager.IsQuestActive(QuestState.QUEST1_PHASE1_TALK_TO_EDNA))
         {
-            if (currentQuest.isConditionMet())
-            {
-                questManager.CompleteQuest(currentQuest);
-                ObjectiveUI.Instance.UpdateQuestList();
-                var nextQuest = questsList
-                    .FirstOrDefault(
-                        quest => quest.GetState() == QuestState.QUEST1_PHASE2_TALK_TO_BRYAN
-                    );
-                currentQuest = nextQuest;
-                questManager.StartQuest(
-                    nextQuest
+            return questsList
+                .FirstOrDefault(
+                    quest => quest.GetQuestState() == QuestState.QUEST1_PHASE2_TALK_TO_BRYAN
                 );
-                ObjectiveUI.Instance.UpdateQuestList();
-                NotificationUI.Instance.AnimatePanel("Objective Updated");
-            }
         } 
-        else if (questManager.IsQuestActive(QuestState.QUEST1_PHASE2_TALK_TO_BRYAN))
+        
+        if (questManager.IsQuestActive(QuestState.QUEST1_PHASE2_TALK_TO_BRYAN))
         {
-            if (currentQuest.isConditionMet())
-            {
-                questManager.CompleteQuest(currentQuest);
-                ObjectiveUI.Instance.UpdateQuestList();
-                var nextQuest = questsList
-                    .FirstOrDefault(
-                        quest => quest.GetState() == QuestState.QUEST1_PHASE3_GET_FD_FROM_FRANK
-                    );
-                currentQuest = nextQuest;
-                questManager.StartQuest(
-                    nextQuest
+            return questsList
+                .FirstOrDefault(   
+                    quest => quest.GetQuestState() == QuestState.QUEST1_PHASE3_GET_FD_FROM_FRANK
                 );
-                ObjectiveUI.Instance.UpdateQuestList();
-                NotificationUI.Instance.AnimatePanel("Objective Updated");
-            }
         }
+        if(questManager.IsQuestActive(QuestState.QUEST1_PHASE3_GET_FD_FROM_FRANK))
+        {
+            return questsList
+                .FirstOrDefault(
+                    quest => quest.GetQuestState() == QuestState.QUEST1_PHASE4_OPEN_DOCUMENT
+                );
+        }
+
+        return null;
     }
 }

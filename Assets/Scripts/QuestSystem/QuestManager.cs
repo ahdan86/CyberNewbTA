@@ -20,9 +20,9 @@ public class QuestManager : MonoBehaviour
         {
             Debug.Log("Quest is Null");
         }
-        if (!activeQuests.ContainsKey(quest.GetState()))
+        if (!activeQuests.ContainsKey(quest.GetQuestState()))
         {
-            activeQuests.Add(quest.GetState(), quest);
+            activeQuests.Add(quest.GetQuestState(), quest);
         }
         else
         {
@@ -32,10 +32,10 @@ public class QuestManager : MonoBehaviour
 
     public void CompleteQuest(QuestWrapper quest)
     {
-        if (activeQuests.ContainsKey(quest.GetState()))
+        if (activeQuests.ContainsKey(quest.GetQuestState()))
         {
-            activeQuests.Remove(quest.GetState());
-            ObjectiveUI.Instance.UpdateQuestList();
+            activeQuests.Remove(quest.GetQuestState());
+            ObjectiveUI.Instance.UpdateObjectiveList();
         }
     }
 

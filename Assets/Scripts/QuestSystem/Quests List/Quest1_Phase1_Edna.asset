@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Quest1_Phase1_Edna
   m_EditorClassIdentifier: 
   state: 1
-  type: 1
-  questDescEng: Hey, first day at the job! Need to go to frontdesk first...
-  mustCompleted: 1
-  interactQuest: Edna
+  objectives:
+  - type: 1
+    description: Need to go to frontdesk first...
+    mustCompleted: 1
+    interactQuest: Edna
+  questDescEng: 'Hey, first day at the job! '

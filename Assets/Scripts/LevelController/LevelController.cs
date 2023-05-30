@@ -6,39 +6,39 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
-    public static LevelController Instance { get; set; }
     public List<Computer> computers;
-    // public List<ProgressBar> computerProgressBars;
-    [SerializeField] private int money;
-    [SerializeField] private int moneyReducer;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
+    public List<ProgressBar> computerProgressBars;
+    [SerializeField] private float money;
+    [SerializeField] private float moneyReducer;
+    [SerializeField] private bool isStarted = false;
 
     private void Update()
     {
-        
-        // Infect Other Computer Functionality
-       foreach(var computer in computers)
+        if (isStarted)
         {
-            // var computerProgressBar = computerProgressBars[computer.getComputerId()];
-            if (computer.getInfected())
+            //Reduce money overtime
+            money -= moneyReducer * Time.deltaTime;
+            
+            //Checking komputer lain
+            foreach(var computer in computers)
             {
-                //computerProgressBar.gameObject.SetActive(true);
-                //StartCoroutine(InfectProgressCoroutine(computerProgressBar));
+                var computerProgressBar = computerProgressBars[computer.getComputerId()];
+                if (computer.getInfected())
+                {
+                    computerProgressBar.gameObject.SetActive(true);
+                    StartCoroutine(InfectProgressCoroutine(computerProgressBar));
+                }
+                else
+                {
+                    computerProgressBar.gameObject.SetActive(false);
+                }
             }
-            else
+            
+            if (money <= 0 && computers.Any(computer => computer.getInfected()))
             {
-                //computerProgressBar.gameObject.SetActive(false);
+                isStarted = false;
+                GameManager.Instance.GameOver();
             }
-        }
-
-        // Checking if there is infected computer
-        if (money <= 0 && computers.Any(computer => computer.getInfected()))
-        {
-            GameManager.Instance.GameOver();
         }
     }
 
@@ -57,5 +57,10 @@ public class LevelController : MonoBehaviour
             // Infect the selected computer
             selected.setInfectComputer();
         }
+    }
+    
+    public void StartGame()
+    {
+        isStarted = true;
     }
 }

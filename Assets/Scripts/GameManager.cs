@@ -8,12 +8,19 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; set; }
     public GameOverScreen gameOverScreen;
     public PauseScreen pauseScreen;
-    public int moneyLeft = 0;
+
     public void GameOver()
     {
         Time.timeScale = 0;
-        gameOverScreen.Setup(moneyLeft);
+        gameOverScreen.Setup();
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void Success(float money)
+    {
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+        // TODO: Add Winning Screen UI (Both gameObject and Script)
     }
 
     public void Paused()
@@ -27,7 +34,7 @@ public class GameManager : MonoBehaviour
     {
         GameOverScreen.isOver = false;
         Time.timeScale = 1;
-        SceneManager.LoadScene("MainGame");
+        SceneManager.LoadScene("Level 1");
     }
 
     public void ResumeButton()

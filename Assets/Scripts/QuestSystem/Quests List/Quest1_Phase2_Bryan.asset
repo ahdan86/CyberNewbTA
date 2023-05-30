@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Quest1_Phase2_Bryan
   m_EditorClassIdentifier: 
   state: 2
-  type: 1
-  questDescEng: I need to see Bryan so i get my task for my first day
-  mustCompleted: 1
-  interactQuest: Bryan
+  objectives:
+  - type: 1
+    description: I need to see Bryan so i get my task for my first day
+    mustCompleted: 1
+    interactQuest: Bryan
+  questDescEng: Meet the CTO

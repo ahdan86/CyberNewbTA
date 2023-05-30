@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters;
@@ -8,20 +9,30 @@ using UnityEngine;
 public class QuestScriptableObject: ScriptableObject
 {
     public QuestState state;
-    public QuestType type;
+    public List<Objective> objectives;
     public string questDescEng;
+}
+
+public enum ObjectiveType : int
+{
+    NONE = 0,
+    INTERACT = 1,
+    SOLVE_VIRUS = 2,
+    SOLVE_PHISH = 3,
+    SOLVE_QUIZ = 4,
+    OPEN_FILE = 5,
+}
+
+[Serializable]
+public class Objective
+{
+    public ObjectiveType type;
+    public string description;
     public int mustCompleted;
 
     [Header("Quest Interact Condition")]
     public string interactQuest;
 }
 
-public enum QuestType : int
-{
-    NONE = 0,
-    INTERACT = 1,
-    SOLVE_VIRUS = 2,
-    SOLVE_PHISH = 3,
-    SOLVE_QUIZ = 4
-}
 
+            

@@ -13,6 +13,12 @@ public class DesktopEvent : MonoBehaviour
         current = this;
     }
 
+    public UnityEvent<int> onOpenFile;
+    public void OpenFile(int id)
+    {
+        onOpenFile?.Invoke(id);
+    }
+
     public UnityEvent<int> onInfectComputer;
     public void InfectComputer(int id)
     {

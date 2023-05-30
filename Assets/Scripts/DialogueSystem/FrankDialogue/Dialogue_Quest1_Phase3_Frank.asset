@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf2eef786ba575448fb2592e80bafd8, type: 3}
+  m_Name: Dialogue_Quest1_Phase3_Frank
+  m_EditorClassIdentifier: 
+  questState: 3
+  messages:
+  - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
+    message: Huftt, this meeting is boring...
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: Hey, are you Frank?
+  - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
+    message: Oi, I'm in the meeting right now >:(
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: Ah, Sorry. Mr. Bryan told me that you have Flashdrive that contain my
+      work document.
+  - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
+    message: Oh, You're the new intern? Wait a minute.
+  - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
+    message: 'Here it is, you can use any computer. Beside Mr. Bryan room. '
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: Okay, thanks. Sorry for bothering you.
+  - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
+    message: Anytime.
+  actors:
+  - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+  - {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}

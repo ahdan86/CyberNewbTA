@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Quest1_Phase3_MeetWithFrank
   m_EditorClassIdentifier: 
   state: 3
-  type: 1
-  questDescEng: Bryan tell me that i need to get Flashdrive from Frank
-  mustCompleted: 1
-  interactQuest: Frank
+  objectives:
+  - type: 1
+    description: Meet and get Flashdrive from Frank
+    mustCompleted: 1
+    interactQuest: Frank
+  questDescEng: Bryan tell me to meet Frank...

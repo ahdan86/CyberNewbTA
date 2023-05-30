@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class QuestWrapper : MonoBehaviour
 {
-    [SerializeField] private QuestScriptableObject _quest;
-    private string interactedWith;
-    public int amountCompleted;
-    
+    [SerializeField] private QuestScriptableObject quest;
+    [SerializeField] private ObjectiveAmountDictionary objectivesAmountCompletedTracker;
+    private string _interactedWith;
+
     private void Start()
     {
         QuestEvent.current.onInteract.AddListener(Interact);
         QuestEvent.current.onSolve.AddListener(Solve);
         QuestEvent.current.test.AddListener(TestListener);
+        
+        objectivesAmountCompletedTracker = new ObjectiveAmountDictionary();
+        foreach (var objective in quest.objectives)
+        {
+            objectivesAmountCompletedTracker.Add(objective, 0);
+        }
     }
 
     public void TestListener(string text)
@@ -22,49 +29,62 @@ public class QuestWrapper : MonoBehaviour
 
     public bool isConditionMet()
     {
-        if (amountCompleted >= _quest.mustCompleted)
+        foreach(var objective in quest.objectives)
         {
-            Debug.Log("Questnya udah selesai nich");
-            return true;
+            if (objectivesAmountCompletedTracker[objective] < objective.mustCompleted)
+            {
+                return false;
+            }
         }
-        else
-            return false;
+        Debug.Log("Quest Condition Met");
+        return true;
     }
 
     public void Interact(string name)
     {
-        interactedWith = name;
-        Debug.Log("Wrapper interactedWith: " + interactedWith);
-        Debug.Log("Wrapper interactQuest: " + _quest.interactQuest);
-        if (interactedWith == _quest.interactQuest)
+        _interactedWith = name;
+        Debug.Log("Wrapper interactedWith: " + _interactedWith);
+        foreach (var objective in quest.objectives)
         {
-            amountCompleted++;
-            ObjectiveUI.Instance.UpdateQuestList();
+            if (objective.interactQuest == _interactedWith)
+            {
+                objectivesAmountCompletedTracker[objective]++;
+                ObjectiveUI.Instance.UpdateObjectiveList();
+            }
         }
     }
 
     public void Solve(int id)
     {
-        if (id == (int)_quest.type)
+        foreach (var objective in quest.objectives)
         {
-            amountCompleted++;
-            ObjectiveUI.Instance.UpdateQuestList();
+            if (id == (int)objective.type)
+            {
+                objectivesAmountCompletedTracker[objective]++;
+                ObjectiveUI.Instance.UpdateObjectiveList();
+            }
         }
     }
 
-    public QuestState GetState()
+    public QuestState GetQuestState()
     {
-        return _quest.state;
+        return quest.state;
     }
 
-    public string GetDescription()
+    public string GetQuestDescription()
     {
-        return _quest.questDescEng;
+        return quest.questDescEng;
     }
 
-    public int GetMustCompleted()
+    public List<Objective> GetObjective()
     {
-        return _quest.mustCompleted;
+        return quest.objectives;
+    }
+
+    public int GetAmountCompletedObjective(Objective objective)
+    {
+        //return objectivesAmountCompletedTracker[objective];
+        return 0;
     }
 
     private void OnDestroy()

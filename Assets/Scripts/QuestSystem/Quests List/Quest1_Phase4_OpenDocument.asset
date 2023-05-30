@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Quest1_Phase4_OpenDocument
   m_EditorClassIdentifier: 
   state: 4
-  type: 0
+  objectives:
+  - type: 0
+    description: 
+    mustCompleted: 1
+    interactQuest: 
   questDescEng: Open document "DocumentForWorkGus"
-  mustCompleted: 1
-  interactQuest: 

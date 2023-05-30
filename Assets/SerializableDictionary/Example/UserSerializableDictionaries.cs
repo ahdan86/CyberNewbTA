@@ -27,3 +27,6 @@ public class QuaternionMyClassDictionary : SerializableDictionary<Quaternion, My
 
 [Serializable]
 public class QuestDictionary : SerializableDictionary<QuestState, QuestWrapper> { }
+
+[Serializable]
+public class ObjectiveAmountDictionary : SerializableDictionary<Objective, int> { }
