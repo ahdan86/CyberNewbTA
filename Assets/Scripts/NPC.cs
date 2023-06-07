@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class NPC : MonoBehaviour, IInteractable
 {
-    [SerializeField] private InteractionPromptUI _interactionPromptUI;
+    [FormerlySerializedAs("_interactionPromptUI")] [SerializeField] private WorldSpaceObjectUI worldSpaceObjectUI;
     [SerializeField] private string _name;
     public string InteractionName => _name;
 
@@ -29,11 +30,11 @@ public class NPC : MonoBehaviour, IInteractable
 
     public void SetUpPromptUI()
     {
-        _interactionPromptUI.SetUp();
+        worldSpaceObjectUI.SetUp();
     }
 
     public void CloseUI()
     {
-        _interactionPromptUI.Close();
+        worldSpaceObjectUI.Close();
     }
 }

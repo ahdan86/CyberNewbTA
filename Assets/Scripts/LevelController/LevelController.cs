@@ -1,66 +1,72 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class LevelController : MonoBehaviour
 {
+    public static LevelController Instance { get; set; }
     public List<Computer> computers;
-    public List<ProgressBar> computerProgressBars;
+    public ProgressBar virusProgressBar;
     [SerializeField] private float money;
+    [SerializeField] private Text moneyText;
     [SerializeField] private float moneyReducer;
-    [SerializeField] private bool isStarted = false;
+    [FormerlySerializedAs("isStarted")] [SerializeField] private bool isMainStarted = false;
+
+    private void Awake()
+    {
+        if(Instance == null)
+            Instance = this;
+    }
+    private void Start()
+    {
+        moneyText.text= money.ToString();
+    }
 
     private void Update()
     {
-        if (isStarted)
+        if (isMainStarted)
         {
             //Reduce money overtime
             money -= moneyReducer * Time.deltaTime;
+            moneyText.text = money.ToString("F1");
             
             //Checking komputer lain
-            foreach(var computer in computers)
+            // linq check if any of the computer is infected
+            if (computers.Any(comp => comp.getInfected()))
             {
-                var computerProgressBar = computerProgressBars[computer.getComputerId()];
-                if (computer.getInfected())
-                {
-                    computerProgressBar.gameObject.SetActive(true);
-                    StartCoroutine(InfectProgressCoroutine(computerProgressBar));
-                }
-                else
-                {
-                    computerProgressBar.gameObject.SetActive(false);
-                }
+                StartCoroutine(InfectProgressCoroutine());
             }
             
-            if (money <= 0 && computers.Any(computer => computer.getInfected()))
+            if (money <= 0)
             {
-                isStarted = false;
+                isMainStarted = false;
                 GameManager.Instance.GameOver();
             }
         }
     }
 
-    IEnumerator InfectProgressCoroutine(ProgressBar computerProgressBar)
+    IEnumerator InfectProgressCoroutine()
     {
-        computerProgressBar.SetProgressActive(true);
-        yield return new WaitUntil(() => computerProgressBar.isProgressCompleted() == true);
+        virusProgressBar.SetProgressActive(true);
+        yield return new WaitUntil(() => virusProgressBar.isProgressCompleted());
 
         List<Computer> availableComputers = computers.Where(comp => !comp.getInfected()).ToList();
         if (availableComputers.Count > 0)
         {
-            // Select a random computer from the available list
             int randomIndex = Random.Range(0, availableComputers.Count);
             var selected = availableComputers[randomIndex];
-
-            // Infect the selected computer
             selected.setInfectComputer();
         }
     }
     
     public void StartGame()
     {
-        isStarted = true;
+        isMainStarted = true;
     }
 }

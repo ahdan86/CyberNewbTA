@@ -53,16 +53,7 @@ public class DesktopScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                isActive = false;
-                WindowController[] windows =
-                    (WindowController[])_windowObjects;
-                foreach(var window in windows)
-                {
-                    Debug.Log("Jumlah Windows Open: " + windows.Length);
-                    window.Close();
-                }
-                gameObject.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
+                SetupDesktopUI(false);
             }
 
             if (isInfected)
@@ -94,11 +85,17 @@ public class DesktopScript : MonoBehaviour
         }
         else
         {
+            WindowController[] windows =
+                (WindowController[])_windowObjects;
+            foreach(var window in windows)
+            {
+                Debug.Log("Close window");
+                window.Close();
+            }
+            
             virusIconsTransform.gameObject.SetActive(false);
             antiVirusIconsTransform.gameObject.SetActive(false);
             gameObject.SetActive(false);
-
-            DesktopEvent.current.onOpenDesktopUI.RemoveListener(OnOpenDesktopUI);
 
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -173,17 +170,21 @@ public class DesktopScript : MonoBehaviour
         calculator.Total = 0;
 
         SetupDesktopUI(true);
+        
+        foreach(BitToggle toggle in calculator.bitToggles)
+        {
+            toggle.SetToggle(false);
+        }
 
         if (isInfected)
         {
-            foreach(BitToggle toggle in calculator.bitToggles)
-            {
-                toggle.SetToggle(false);
-            }
             targetNumber = Random.Range(0, 31);
             targetText.text = targetNumber.ToString();
         } else
         {
+            virusWindowTransform.Find("Content").Find("VirusDesc").GetComponent<Text>().text =
+                "You must install this software to open DocumentToWorkForGus.docx";
+            virusWindowTransform.Find("Content").Find("OK Button").GetComponent<Button>().enabled = true;
             contentTransform.GetComponent<Image>().color = new Color32(0x91, 0xAB, 0x7E, 0xFF);
             targetText.text = "Not Infected";
         }
@@ -191,6 +192,7 @@ public class DesktopScript : MonoBehaviour
 
     IEnumerator VirusProgressCoroutine()
     {
+        virusWindowTransform.Find("Content").Find("OK Button").GetComponent<Button>().enabled = false;
         infectVirusProgressBar.SetProgressActive(true);
         yield return new WaitUntil(() => infectVirusProgressBar.isProgressCompleted() == true);
         

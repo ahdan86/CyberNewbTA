@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 4
   objectives:
-  - type: 0
-    description: 
+  - type: 5
+    description: Open document named "DocumentForWork"
     mustCompleted: 1
     interactQuest: 
-  questDescEng: Open document "DocumentForWorkGus"
+  questDescEng: Open document for my first work.

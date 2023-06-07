@@ -7,6 +7,7 @@ public class QuestWrapper : MonoBehaviour
 {
     [SerializeField] private QuestScriptableObject quest;
     [SerializeField] private ObjectiveAmountDictionary objectivesAmountCompletedTracker;
+    [SerializeField] private Inventory inventory;
     private string _interactedWith;
 
     private void Start()
@@ -35,6 +36,11 @@ public class QuestWrapper : MonoBehaviour
             {
                 return false;
             }
+        }
+
+        if (quest.state == QuestState.QUEST1_PHASE3_GET_FD_FROM_FRANK)
+        {
+            inventory.SetHasContamined(true);
         }
         Debug.Log("Quest Condition Met");
         return true;

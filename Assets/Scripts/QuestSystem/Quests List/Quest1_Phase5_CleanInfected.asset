@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Quest1_Phase5_CleanInfected
   m_EditorClassIdentifier: 
   state: 5
-  type: 2
+  objectives:
+  - type: 2
+    description: Clean the virus that infected the computers!
+    mustCompleted: 3
+    interactQuest: 
   questDescEng: I need to clean the virus on these infected computers
-  mustCompleted: 3
-  interactQuest: 

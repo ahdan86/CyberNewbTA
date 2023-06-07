@@ -5,10 +5,11 @@ using UnityEngine.UI;
 using DG.Tweening;
 using float_oat.Desktop90;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 public class Computer : MonoBehaviour, IInteractable
 {
-    [SerializeField] private InteractionPromptUI _interactionPromptUI;
+    [FormerlySerializedAs("_interactionPromptUI")] [SerializeField] private WorldSpaceObjectUI worldSpaceObjectUI;
     [SerializeField] private string _prompt;
     public string InteractionName => _prompt;
 
@@ -61,12 +62,12 @@ public class Computer : MonoBehaviour, IInteractable
 
     public void SetUpPromptUI()
     {
-        _interactionPromptUI.SetUp();
+        worldSpaceObjectUI.SetUp();
     }
 
     public void CloseUI()
     {
-        _interactionPromptUI.Close();
+        worldSpaceObjectUI.Close();
     }
 
     public bool getInfected()

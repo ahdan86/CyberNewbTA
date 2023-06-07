@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf2eef786ba575448fb2592e80bafd8, type: 3}
+  m_Name: Dialogue_Quest1_Idle_Agnes
+  m_EditorClassIdentifier: 
+  questState: 0
+  messages:
+  - actor: {fileID: 11400000, guid: d35fadad1a4f0ed40bb6d946fe6fd9a1, type: 2}
+    message: Cmon Boss, this solution is can't be implemented!!
+  - actor: {fileID: 11400000, guid: e6f4921c532ad7a4d8a33cc1e2f102a1, type: 2}
+    message: DO I LOOK LIKE I CARE? FIGURE IT OUT!!
+  - actor: {fileID: 11400000, guid: d35fadad1a4f0ed40bb6d946fe6fd9a1, type: 2}
+    message: R-R-Right away boss... :(
+  actors:
+  - {fileID: 11400000, guid: d35fadad1a4f0ed40bb6d946fe6fd9a1, type: 2}
+  - {fileID: 11400000, guid: e6f4921c532ad7a4d8a33cc1e2f102a1, type: 2}

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actorId: 5
   name: Boss
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: adb33737fd8a10a4ab0eb60dcac2eb4e, type: 3}

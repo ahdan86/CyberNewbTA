@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; set; }
-    public GameOverScreen gameOverScreen;
+    [FormerlySerializedAs("gameoverScreen")] public GameOverScreen gameOverScreen;
     public PauseScreen pauseScreen;
 
     public void GameOver()
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
     {
         GameOverScreen.isOver = false;
         Time.timeScale = 1;
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void ResumeButton()

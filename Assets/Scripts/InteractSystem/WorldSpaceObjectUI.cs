@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class InteractionPromptUI : MonoBehaviour
+public class WorldSpaceObjectUI : MonoBehaviour
 {
     private Camera _mainCam;
     [SerializeField] private GameObject _uiPanel; 
@@ -18,8 +18,6 @@ public class InteractionPromptUI : MonoBehaviour
         var rotation = _mainCam.transform.rotation;
         transform.LookAt(transform.position + rotation * Vector3.forward, rotation * Vector3.up);
     }
-
-    public bool isDisplayed = false;
 
     public void SetUp()
     {
