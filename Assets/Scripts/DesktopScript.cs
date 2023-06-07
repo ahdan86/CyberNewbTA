@@ -36,12 +36,11 @@ public class DesktopScript : MonoBehaviour
     [Header("Player Properties")]
     [SerializeField] private Inventory inventory;
 
-    private Object[] _windowObjects;
+    [SerializeField] private WindowController[] windowObjects;
 
 
     private void Start()
     {
-        _windowObjects = FindObjectsOfType(typeof(WindowController));
         DesktopEvent.current.onOpenDesktopUI.AddListener(OnOpenDesktopUI);
         DesktopEvent.current.onInfectComputer.AddListener(SetAntiVirus);
         gameObject.SetActive(false);
@@ -51,6 +50,7 @@ public class DesktopScript : MonoBehaviour
     {
         if (isActive)
         {
+            windowObjects = FindObjectsOfType(typeof(WindowController)) as WindowController[];
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 SetupDesktopUI(false);
@@ -67,9 +67,8 @@ public class DesktopScript : MonoBehaviour
         }
     }
 
-    public void SetupDesktopUI(bool active)
+    private void SetupDesktopUI(bool active)
     {
-        isActive = active;
         if (active)
         {
             gameObject.SetActive(true);
@@ -85,20 +84,25 @@ public class DesktopScript : MonoBehaviour
         }
         else
         {
-            WindowController[] windows =
-                (WindowController[])_windowObjects;
-            foreach(var window in windows)
-            {
-                Debug.Log("Close window");
-                window.Close();
-            }
-            
-            virusIconsTransform.gameObject.SetActive(false);
-            antiVirusIconsTransform.gameObject.SetActive(false);
-            gameObject.SetActive(false);
-
+            StartCoroutine(CloseAllWindows());
             Cursor.lockState = CursorLockMode.Locked;
         }
+        isActive = active;
+    }
+    
+    IEnumerator CloseAllWindows()
+    {
+        foreach(var window in windowObjects)
+        {
+            Debug.Log("Closing window");
+            window.Close();
+        }
+        
+        yield return new WaitForSeconds(0.5f);
+        
+        virusIconsTransform.gameObject.SetActive(false);
+        antiVirusIconsTransform.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
     
     public void SetAntiVirus(int id)
