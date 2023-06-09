@@ -17,4 +17,6 @@ public class Message
 {
     [FormerlySerializedAs("actorId")] public Actor actor;
     public string message;
+    public string[] choices; // Add choices array
+    public int correctChoiceIndex;
 }

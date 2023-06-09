@@ -79,13 +79,6 @@ public class QuestController : MonoBehaviour
                     quest => quest.GetQuestState() == QuestState.QUEST1_PHASE4_OPEN_DOCUMENT
                 );
         }
-        if(questManager.IsQuestActive(QuestState.QUEST1_PHASE4_OPEN_DOCUMENT))
-        {
-            return questsList
-                .FirstOrDefault(
-                    quest => quest.GetQuestState() == QuestState.QUEST1_PHASE5_CLEAN_INFECTED
-                );
-        }
         return null;
     }
 }

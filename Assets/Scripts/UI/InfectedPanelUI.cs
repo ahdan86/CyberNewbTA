@@ -7,6 +7,7 @@ public class InfectedPanelUI : MonoBehaviour
 {
     public static InfectedPanelUI Instance { get; set; }
     public RectTransform backgroundPanel;
+    public bool isOpen;
     private void Start()
     {
         if (Instance == null)

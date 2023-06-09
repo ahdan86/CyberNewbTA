@@ -13,9 +13,15 @@ public class LevelController : MonoBehaviour
     public static LevelController Instance { get; set; }
     public List<Computer> computers;
     public ProgressBar virusProgressBar;
+    
     [SerializeField] private float money;
     [SerializeField] private Text moneyText;
     [SerializeField] private float moneyReducer;
+    
+    [SerializeField] private int infectedComputer;
+    [SerializeField] private Text computerInfectedText;
+
+    [SerializeField] private bool isInfecting;
     [FormerlySerializedAs("isStarted")] [SerializeField] private bool isMainStarted = false;
 
     private void Awake()
@@ -34,13 +40,33 @@ public class LevelController : MonoBehaviour
         {
             //Reduce money overtime
             money -= moneyReducer * Time.deltaTime;
-            moneyText.text = money.ToString("F1");
+            moneyText.text = money.ToString("F2");
             
+            infectedComputer = computers.Count(comp => comp.GetInfectedStatus());
+            computerInfectedText.text = $"{infectedComputer} / {computers.Count}";
+
             //Checking komputer lain
-            // linq check if any of the computer is infected
-            if (computers.Any(comp => comp.getInfected()))
+            if (infectedComputer > 0)
             {
-                StartCoroutine(InfectProgressCoroutine());
+                if (!isInfecting && infectedComputer < computers.Count)
+                {
+                    isInfecting = true;
+                    StartCoroutine(InfectProgressCoroutine());
+                }
+                
+                if (!InfectedPanelUI.Instance.isOpen)
+                {
+                    InfectedPanelUI.Instance.AnimateOpenPanel();
+                    InfectedPanelUI.Instance.isOpen = true;
+                } 
+            }
+            else
+            {
+                if (InfectedPanelUI.Instance.isOpen)
+                {
+                    InfectedPanelUI.Instance.isOpen = false;
+                    InfectedPanelUI.Instance.AnimateClosePanel();
+                }
             }
             
             if (money <= 0)
@@ -54,15 +80,17 @@ public class LevelController : MonoBehaviour
     IEnumerator InfectProgressCoroutine()
     {
         virusProgressBar.SetProgressActive(true);
-        yield return new WaitUntil(() => virusProgressBar.isProgressCompleted());
+        yield return new WaitUntil(() => virusProgressBar.IsProgressCompleted());
 
-        List<Computer> availableComputers = computers.Where(comp => !comp.getInfected()).ToList();
+        List<Computer> availableComputers = computers.Where(comp => !comp.GetInfectedStatus()).ToList();
         if (availableComputers.Count > 0)
         {
             int randomIndex = Random.Range(0, availableComputers.Count);
             var selected = availableComputers[randomIndex];
-            selected.setInfectComputer();
+            selected.SetInfectComputer();
         }
+        virusProgressBar.SetProgressValue(0);
+        isInfecting = false;
     }
     
     public void StartGame()

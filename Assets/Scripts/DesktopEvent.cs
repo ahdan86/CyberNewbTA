@@ -10,13 +10,10 @@ public class DesktopEvent : MonoBehaviour
 
     private void Awake()
     {
-        current = this;
-    }
-
-    public UnityEvent<int> onOpenFile;
-    public void OpenFile(int id)
-    {
-        onOpenFile?.Invoke(id);
+        if (current == null)
+        {
+            current = this;
+        }
     }
 
     public UnityEvent<int> onInfectComputer;
@@ -31,10 +28,10 @@ public class DesktopEvent : MonoBehaviour
         onCleanVirus?.Invoke(id);
     }
     
-    public UnityEvent<int, bool> onOpenDesktopUI;
-    public void OpenDesktopUI(int id, bool infected)
+    public UnityEvent<int, bool, bool> onOpenDesktopUI;
+    public void OpenDesktopUI(int id, bool infected, bool fileRestored)
     {
         Debug.Log("Event Computer id: " + id);
-        onOpenDesktopUI?.Invoke(id, infected);
+        onOpenDesktopUI?.Invoke(id, infected, fileRestored);
     }
 }

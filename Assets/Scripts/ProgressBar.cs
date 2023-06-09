@@ -1,40 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
-    [SerializeField] private Image _progressBarSprite;
-    [SerializeField] private float _progressBarSpeed = 0.1f;
-    [SerializeField] private float _targetFill = 1;
-    private bool isActive = false;
-    private bool isCompleted = false;
+    [FormerlySerializedAs("_progressBarSprite")] [SerializeField] private Image progressBarSprite;
+    [FormerlySerializedAs("_progressBarSpeed")] [SerializeField] private float progressBarSpeed = 0.1f;
+    [FormerlySerializedAs("_targetFill")] [SerializeField] private float targetFill = 1;
+    private bool _isActive;
+    private bool _isCompleted;
 
     // Update is called once per frame
     void Update()
     {
-        if(isActive)
-            _progressBarSprite.fillAmount = Mathf.MoveTowards(_progressBarSprite.fillAmount, _targetFill, _progressBarSpeed * Time.deltaTime);
-        if (_progressBarSprite.fillAmount == 1)
+        if(_isActive)
+            progressBarSprite.fillAmount = Mathf.MoveTowards(
+                progressBarSprite.fillAmount, 
+                targetFill, 
+                progressBarSpeed * Time.deltaTime
+            );
+        if (progressBarSprite.fillAmount >= targetFill)
         {
-            isCompleted = true;
-            isActive = false;
+            Debug.Log("Baru Penuh");
+            SetProgressActive(false);
         }
     }
 
     public void SetProgressValue(float value)
     {
-        _progressBarSprite.fillAmount = value;
+        progressBarSprite.fillAmount = value;
     }
 
     public void SetProgressActive(bool status)
     {
-        isActive = status;
+        _isActive = status;
+        _isCompleted = !status;
     }
     
-    public bool isProgressCompleted()
+    public bool IsProgressCompleted()
     {
-        return isCompleted;
+        return _isCompleted;
     }
 }

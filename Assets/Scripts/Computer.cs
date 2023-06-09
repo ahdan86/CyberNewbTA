@@ -14,50 +14,55 @@ public class Computer : MonoBehaviour, IInteractable
     public string InteractionName => _prompt;
 
     [Header("Computer Properties")]
-    [SerializeField] private bool virusInfected = false;
+    [SerializeField] private bool virusInfected;
+
+    [SerializeField] private bool fileRestored;
     [SerializeField] private int computerId;
 
     [Header("Dialogue Trigger")]
     public DialogueTrigger dialogueFDWarning;
 
+    private void Start()
+    {
+        DesktopEvent.current.onInfectComputer.AddListener(InfectComputerById);
+        DesktopEvent.current.onCleanVirus.AddListener(CleanInfectedById);
+    }
+    
     public bool Interact(Interactor interactor)
     {
         var inventory = interactor.GetComponent<Inventory>();
 
-        if (inventory == null) return false;
+        if (inventory == null) 
+            return false;
+        
         if (inventory.HasFDContamined || inventory.HasFDAntivirus)
         {
             Debug.Log("The Player have the FD in the inventory");
             Debug.Log("Interacting with computer");
             
-            DesktopEvent.current.OpenDesktopUI(computerId, virusInfected);
+            DesktopEvent.current.OpenDesktopUI(computerId, virusInfected, fileRestored);
            
             return true;
         }
-        else
-        {
-            dialogueFDWarning.StartDialogue();
-            Debug.Log("You need to find the floppy disks!");
-            return false;
-        }
+
+        dialogueFDWarning.StartDialogue();
+        Debug.Log("You need to find the floppy disks!");
+        return false;
     }
 
-    private void Start()
-    {
-        DesktopEvent.current.onInfectComputer.AddListener(InfectComputer);
-        DesktopEvent.current.onCleanVirus.AddListener(CleanInfected);
-    }
-
-    public void InfectComputer(int id)
+    public void InfectComputerById(int id)
     {
         if(id == computerId)
             virusInfected = true;
     }
 
-    public void CleanInfected(int id)
+    public void CleanInfectedById(int id)
     {
         if (id == computerId)
+        {
             virusInfected = false;
+            fileRestored = true;
+        }
     }
 
     public void SetUpPromptUI()
@@ -70,24 +75,19 @@ public class Computer : MonoBehaviour, IInteractable
         worldSpaceObjectUI.Close();
     }
 
-    public bool getInfected()
+    public bool GetInfectedStatus()
     {
         return virusInfected;
     }
 
-    public int getComputerId()
-    {
-        return computerId;
-    }
-
-    public void setInfectComputer()
+    public void SetInfectComputer()
     {
         virusInfected = true; 
     }
 
     public void OnDestroy()
     {
-        DesktopEvent.current.onInfectComputer.RemoveListener(InfectComputer);
-        DesktopEvent.current.onCleanVirus.RemoveListener(CleanInfected);
+        DesktopEvent.current.onInfectComputer.RemoveListener(InfectComputerById);
+        DesktopEvent.current.onCleanVirus.RemoveListener(CleanInfectedById);
     }
 }

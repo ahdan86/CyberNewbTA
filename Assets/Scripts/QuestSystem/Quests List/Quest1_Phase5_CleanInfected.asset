@@ -15,7 +15,13 @@ MonoBehaviour:
   state: 5
   objectives:
   - type: 2
-    description: Clean the virus that infected the computers!
-    mustCompleted: 3
+    description: Clean the virus that infected all computers!
+    mustCompleted: 1
     interactQuest: 
+    openFileQuest: 
+  - type: 2
+    description: Clean the virus that infected the computers!
+    mustCompleted: 1
+    interactQuest: 
+    openFileQuest: Document_Real
   questDescEng: I need to clean the virus on these infected computers

@@ -30,8 +30,10 @@ public class Objective
     public string description;
     public int mustCompleted;
 
-    [Header("Quest Interact Condition")]
+    [Header("Quest Condition")]
     public string interactQuest;
+    public string openFileQuest;
+    
 }
 
 

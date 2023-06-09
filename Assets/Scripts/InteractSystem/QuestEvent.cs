@@ -17,6 +17,12 @@ public class QuestEvent : MonoBehaviour
         onInteract?.Invoke(name);
     }
 
+    public UnityEvent<string> onOpenFile;
+    public void OpenFile(string fileName)
+    {
+        onOpenFile?.Invoke(fileName);
+    }
+
     public UnityEvent<int> onSolve;
     public void Solve(int type)
     {

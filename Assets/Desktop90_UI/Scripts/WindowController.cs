@@ -21,6 +21,7 @@ namespace float_oat.Desktop90
         [Header("Collapsing")]
         [SerializeField] private RectTransform HideOnCollapse = default;
         [SerializeField] private float CollapsedHeight = 32;
+        [SerializeField] private string FileName;
 
         private float ExpandedHeight;
         private bool IsCollapsed = false;
@@ -88,6 +89,7 @@ namespace float_oat.Desktop90
         /// </summary>
         public void Open()
         {
+            QuestEvent.current.OpenFile(FileName);
             gameObject.SetActive(true);
             if (CanvasGroup != null && EnableFadeInAndFadeOutAnimation && FadeInTime > 0f)
             {

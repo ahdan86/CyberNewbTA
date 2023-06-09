@@ -44,8 +44,27 @@ public class DialogueManager : MonoBehaviour
         actorImage.sprite = actor.sprite;
         actorName.text = actor.name;
         messageText.text = message.message;
+        
+        for (int i = 0; i < message.choices.Length; i++)
+        {
+            // TODO: Display choices
+        }
 
         AnimateTextColor();
+    }
+    
+    public void EvaluateChoice(bool isCorrect)
+    {
+        if (isCorrect)
+        {
+            Debug.Log("Correct choice!");
+        }
+        else
+        {
+            Debug.Log("Wrong choice!");
+        }
+
+        NextMessage();
     }
     
     public void NextMessage()
@@ -53,6 +72,11 @@ public class DialogueManager : MonoBehaviour
         _activeMessage++;
         if (_activeMessage < _currentMessages.Length)
         {
+            // Hide choices
+            //for (int i = 0; i < buttonArray.Length; i++)
+            //{
+            //     buttonArray[i].gameObject.SetActive(false);
+            //}
             DisplayMessage();
         }
         else

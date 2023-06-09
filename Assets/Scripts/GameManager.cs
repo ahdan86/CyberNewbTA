@@ -9,12 +9,18 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; set; }
     [FormerlySerializedAs("gameoverScreen")] public GameOverScreen gameOverScreen;
     public PauseScreen pauseScreen;
-
+    
+    public void Awake()
+    {
+        if(Instance == null)
+            Instance = this;
+    }
+    
     public void GameOver()
     {
         Time.timeScale = 0;
-        gameOverScreen.Setup();
         Cursor.lockState = CursorLockMode.None;
+        gameOverScreen.Setup();
     }
 
     public void Success(float money)
@@ -33,7 +39,6 @@ public class GameManager : MonoBehaviour
 
     public void RestartButton()
     {
-        GameOverScreen.isOver = false;
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

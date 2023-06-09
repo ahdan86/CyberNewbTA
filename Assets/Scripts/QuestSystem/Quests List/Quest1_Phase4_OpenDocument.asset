@@ -18,4 +18,5 @@ MonoBehaviour:
     description: Open document named "DocumentForWork"
     mustCompleted: 1
     interactQuest: 
+    openFileQuest: Document_Real
   questDescEng: Open document for my first work.

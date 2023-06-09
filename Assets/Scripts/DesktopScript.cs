@@ -20,8 +20,12 @@ public class DesktopScript : MonoBehaviour
     [SerializeField] private Transform antiVirusIconsTransform;
     [SerializeField] private Transform antiVirusWindowTransform;
 
-    public bool isActive = false;
-    public bool isInfected = false;
+    [SerializeField] private Transform documentIconsTransform;
+    [SerializeField] private Transform documentWindowTransform;
+
+    public bool isActive;
+    public bool isInfected;
+    public bool fileRestored;
     
     [Header("Desktop Properties & UI")]
     [SerializeField] private ProgressBar infectVirusProgressBar;
@@ -42,7 +46,7 @@ public class DesktopScript : MonoBehaviour
     private void Start()
     {
         DesktopEvent.current.onOpenDesktopUI.AddListener(OnOpenDesktopUI);
-        DesktopEvent.current.onInfectComputer.AddListener(SetAntiVirus);
+        DesktopEvent.current.onInfectComputer.AddListener(OnInfectedAntivirus);
         gameObject.SetActive(false);
     }
 
@@ -58,11 +62,13 @@ public class DesktopScript : MonoBehaviour
 
             if (isInfected)
             {
-                contentTransform.GetComponent<Image>().color = Color.Lerp(Color.blue, Color.red, Mathf.PingPong(Time.time * 1.5f, 1));
+                contentTransform.GetComponent<Image>().color =
+                    Color.Lerp(Color.blue, Color.red, Mathf.PingPong(Time.time * 1.5f, 1));
             }
             else
             {
-                antiVirusWindowTransform.Find("Content").Find("DescText").GetComponent<Text>().text = "The Antivirus didn't find any virus on the computer.";
+                antiVirusWindowTransform.Find("Content").Find("DescText").GetComponent<Text>().text =
+                    "The Antivirus didn't find any virus on the computer.";
             }
         }
     }
@@ -75,7 +81,10 @@ public class DesktopScript : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             if (inventory.HasFDContamined)
             {
-                virusIconsTransform.gameObject.SetActive(true);
+                if(fileRestored)
+                    documentIconsTransform.gameObject.SetActive(true);
+                else 
+                    virusIconsTransform.gameObject.SetActive(true);
             }
             if (inventory.HasFDAntivirus)
             {
@@ -105,12 +114,11 @@ public class DesktopScript : MonoBehaviour
         gameObject.SetActive(false);
     }
     
-    public void SetAntiVirus(int id)
+    public void OnInfectedAntivirus(int id)
     {
         if(id == computerId)
         {
-            targetNumber = Random.Range(0, 31);
-            targetText.text = targetNumber.ToString();
+            SetAntiVirusWindow(true);
         }
     }
 
@@ -128,27 +136,56 @@ public class DesktopScript : MonoBehaviour
 
     IEnumerator CleanVirusProgressCoroutine()
     {
+        antiVirusWindowTransform.Find("Content").Find("Puzzle").Find("Submit Button")
+            .GetComponent<Button>().interactable = false;
         
         cleanVirusProgressBar.SetProgressActive(true);
-        yield return new WaitUntil(() => cleanVirusProgressBar.isProgressCompleted() == true);
+        while (!cleanVirusProgressBar.IsProgressCompleted())
+        {
+            yield return null;
+        }
 
         if (calculator.Total == targetNumber)
         {
             isInfected = false;
             DesktopEvent.current.CleanVirus(computerId);
-            virusWindowTransform.Find("Content").Find("VirusDesc").GetComponent<Text>().text
-                = "You must install this software to open DocumentToWorkForGus.docx";
             contentTransform.GetComponent<Image>().color = new Color32(0x91, 0xAB, 0x7E, 0xFF);
+            
+            SetAntiVirusWindow(false);
+            yield return new WaitForSeconds(1f);
+            antiVirusWindowTransform.gameObject.GetComponent<WindowController>().Close();
         }
         else
         {
             targetText.text = "WRONG ANSWER";
             yield return new WaitForSeconds(1f);
-            targetNumber = Random.Range(0, 31);
-            targetText.text = targetNumber.ToString();
+            SetAntiVirusWindow(true);
         }
         
         cleanVirusProgressBar.SetProgressValue(0f);
+    }
+    
+    private void SetAntiVirusWindow(bool infectedStatus)
+    {
+        calculator.Total = 0;
+        foreach(BitToggle toggle in calculator.bitToggles)
+        {
+            toggle.SetToggle(false);
+        }
+
+        if (infectedStatus)
+        {
+            antiVirusWindowTransform.Find("Content").Find("DescText").GetComponent<Text>().text =
+                "Your PC has been infected with a virus. Solve the puzzle to clean it up.";
+            targetNumber = Random.Range(0, 31);
+            targetText.text = targetNumber.ToString();
+        }
+        else
+        {
+            antiVirusWindowTransform.Find("Content").Find("DescText").GetComponent<Text>().text =
+                "The Antivirus didn't find any virus on the computer.";
+            targetText.text = "Not Infected";
+        }
     }
 
     public void InfectComputer()
@@ -156,7 +193,6 @@ public class DesktopScript : MonoBehaviour
         if (!isInfected)
         {
             StartCoroutine(VirusProgressCoroutine());
-            DesktopEvent.current.InfectComputer(computerId);
         }
         else
         {
@@ -165,54 +201,61 @@ public class DesktopScript : MonoBehaviour
         }
     }
 
-    private void OnOpenDesktopUI(int id, bool infected)
+    private void OnOpenDesktopUI(int id, bool infected, bool fileRestored)
     {
         Debug.Log("Desktop Opened");
         isActive = true;
         computerId = id;
         isInfected = infected;
-        calculator.Total = 0;
 
         SetupDesktopUI(true);
-        
-        foreach(BitToggle toggle in calculator.bitToggles)
-        {
-            toggle.SetToggle(false);
-        }
 
         if (isInfected)
         {
-            targetNumber = Random.Range(0, 31);
-            targetText.text = targetNumber.ToString();
-        } else
+            SetVirusWindow(true);
+            SetAntiVirusWindow(true);
+        } 
+        else
         {
-            virusWindowTransform.Find("Content").Find("VirusDesc").GetComponent<Text>().text =
-                "You must install this software to open DocumentToWorkForGus.docx";
-            virusWindowTransform.Find("Content").Find("OK Button").GetComponent<Button>().enabled = true;
+            SetVirusWindow(false); 
+            SetAntiVirusWindow(false);
             contentTransform.GetComponent<Image>().color = new Color32(0x91, 0xAB, 0x7E, 0xFF);
-            targetText.text = "Not Infected";
         }
     }
 
     IEnumerator VirusProgressCoroutine()
     {
-        virusWindowTransform.Find("Content").Find("OK Button").GetComponent<Button>().enabled = false;
+        virusWindowTransform.Find("Content").Find("OK Button").GetComponent<Button>().interactable = false;
         infectVirusProgressBar.SetProgressActive(true);
-        yield return new WaitUntil(() => infectVirusProgressBar.isProgressCompleted() == true);
+        yield return new WaitUntil(() => infectVirusProgressBar.IsProgressCompleted());
         
         isInfected = true;
-        
         DesktopEvent.current.InfectComputer(computerId);
-
-        virusWindowTransform.Find("Content").Find("VirusDesc").GetComponent<Text>().text = "Computer infected!!!!!!!!!!!!!!!!";
+        SetVirusWindow(true);
+        
         yield return new WaitForSeconds(1f);
         virusWindowTransform.gameObject.GetComponent<WindowController>().Close();
+        
         infectVirusProgressBar.SetProgressValue(0f);
+    }
+
+    private void SetVirusWindow(bool infectedStatus)
+    {
+        if (infectedStatus)
+        {
+            virusWindowTransform.Find("Content").Find("VirusDesc").GetComponent<Text>().text = "Computer infected!!!!!!!!!!!!!!!!";
+            virusWindowTransform.Find("Content").Find("OK Button").GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            virusWindowTransform.Find("Content").Find("VirusDesc").GetComponent<Text>().text = "You must install this software to open DocumentToWorkForGus.docx";
+            virusWindowTransform.Find("Content").Find("OK Button").GetComponent<Button>().interactable = true;
+        }
     }
 
     private void OnDestroy()
     {
         DesktopEvent.current.onOpenDesktopUI.RemoveListener(OnOpenDesktopUI);
-        DesktopEvent.current.onInfectComputer.RemoveListener(SetAntiVirus);
+        DesktopEvent.current.onInfectComputer.RemoveListener(OnInfectedAntivirus);
     }
 }

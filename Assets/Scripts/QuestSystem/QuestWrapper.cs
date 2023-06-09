@@ -14,18 +14,13 @@ public class QuestWrapper : MonoBehaviour
     {
         QuestEvent.current.onInteract.AddListener(Interact);
         QuestEvent.current.onSolve.AddListener(Solve);
-        QuestEvent.current.test.AddListener(TestListener);
-        
+        QuestEvent.current.onOpenFile.AddListener(OpenFile);
+
         objectivesAmountCompletedTracker = new ObjectiveAmountDictionary();
         foreach (var objective in quest.objectives)
         {
             objectivesAmountCompletedTracker.Add(objective, 0);
         }
-    }
-
-    public void TestListener(string text)
-    {
-        Debug.Log(text);
     }
 
     public bool isConditionMet()
@@ -52,8 +47,21 @@ public class QuestWrapper : MonoBehaviour
         Debug.Log("Wrapper interactedWith: " + _interactedWith);
         foreach (var objective in quest.objectives)
         {
-            if (objective.interactQuest == _interactedWith)
+            if (objective.type == ObjectiveType.INTERACT && objective.interactQuest == _interactedWith)
             {
+                objectivesAmountCompletedTracker[objective]++;
+                ObjectiveUI.Instance.UpdateObjectiveList();
+            }
+        }
+    }
+    
+    public void OpenFile(string fileName)
+    {
+        foreach (var objective in quest.objectives)
+        {
+            if (objective.type == ObjectiveType.OPEN_FILE && fileName == objective.openFileQuest)
+            {
+                Debug.Log($"Berhasil Open File {fileName}, Condition: {objective.openFileQuest}");
                 objectivesAmountCompletedTracker[objective]++;
                 ObjectiveUI.Instance.UpdateObjectiveList();
             }
