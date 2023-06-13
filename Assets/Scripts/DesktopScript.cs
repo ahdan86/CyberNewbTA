@@ -6,13 +6,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using Mono.Cecil;
+    using UnityEngine.Serialization;
 
-public class DesktopScript : MonoBehaviour
+    public class DesktopScript : MonoBehaviour
 {
     [Header("Desktop Transform UI")]
     [SerializeField] private Transform contentTransform;
-    [SerializeField] private Transform iconsTransform;
-    [SerializeField] private Transform windowsTransform;
 
     [SerializeField] private Transform virusIconsTransform;
     [SerializeField] private Transform virusWindowTransform;
@@ -25,7 +24,7 @@ public class DesktopScript : MonoBehaviour
 
     public bool isActive;
     public bool isInfected;
-    public bool fileRestored;
+    public bool isFileRestored;
     
     [Header("Desktop Properties & UI")]
     [SerializeField] private ProgressBar infectVirusProgressBar;
@@ -81,7 +80,7 @@ public class DesktopScript : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             if (inventory.HasFDContamined)
             {
-                if(fileRestored)
+                if(isFileRestored)
                     documentIconsTransform.gameObject.SetActive(true);
                 else 
                     virusIconsTransform.gameObject.SetActive(true);
@@ -109,8 +108,10 @@ public class DesktopScript : MonoBehaviour
         
         yield return new WaitForSeconds(0.5f);
         
+        // Turn off all core program
         virusIconsTransform.gameObject.SetActive(false);
         antiVirusIconsTransform.gameObject.SetActive(false);
+        documentWindowTransform.gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
     

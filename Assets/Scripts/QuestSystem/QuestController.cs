@@ -9,32 +9,25 @@ public class QuestController : MonoBehaviour
     [SerializeField] private QuestManager questManager;
     public QuestWrapper starterQuest;
     
-
     private void Start()
     {
         questManager.StartQuest(starterQuest);
+        QuestEvent.current.onIsInfecting.AddListener(Infecting);
         ObjectiveUI.Instance.UpdateObjectiveList();
     }
 
     private void Update()
     {
-        foreach (var currentQuest in QuestManager.Instance.GetActiveQuests().Values.ToList())
+        foreach (var activeQuest in QuestManager.Instance.GetActiveQuests().Values.ToList())
         {
-            if (currentQuest.isConditionMet())
+            if (activeQuest.IsConditionMet())
             {
                 var nextQuest = GetNextQuest();
                 if (nextQuest == null)
                 {
-                    if (currentQuest.GetQuestState() == QuestState.QUEST1_PHASE4_OPEN_DOCUMENT)
+                    if (activeQuest.GetQuestState() == QuestState.QUEST1_PHASE4_OPEN_DOCUMENT)
                     {
-                        questManager.CompleteQuest(currentQuest);
-                        //TODO: GAME IS OVER: SUCCESS
-                    }
-                    else if (currentQuest.GetQuestState() == QuestState.QUEST1_PHASE5_CLEAN_INFECTED)
-                    {
-                        questManager.CompleteQuest(currentQuest);
-                        NotificationUI.Instance.AnimatePanel("All Computers Cleaned");
-                        //TODO: Break the update loop
+                        questManager.CompleteQuest(activeQuest);
                     }
                     else
                     {
@@ -43,13 +36,35 @@ public class QuestController : MonoBehaviour
                 }
                 else
                 {
-                    questManager.CompleteQuest(currentQuest);
+                    questManager.CompleteQuest(activeQuest);
                     questManager.StartQuest(nextQuest);
 
                     ObjectiveUI.Instance.UpdateObjectiveList();
                     NotificationUI.Instance.AnimatePanel("Objective Updated");
                 }
             }
+        }
+    }
+    
+    public void Infecting(bool status)
+    {
+        if (status)
+        {
+            questManager.StartQuest(questsList
+                .FirstOrDefault(
+                    quest => quest.GetQuestState() == QuestState.QUEST_CLEAN_INFECTED
+                ));
+            ObjectiveUI.Instance.UpdateObjectiveList();
+            NotificationUI.Instance.AnimatePanel("Objective Updated");
+        }
+        else
+        {
+            questManager.CompleteQuest(questsList
+                .FirstOrDefault(
+                    quest => quest.GetQuestState() == QuestState.QUEST_CLEAN_INFECTED
+                ));
+            ObjectiveUI.Instance.UpdateObjectiveList();
+            NotificationUI.Instance.AnimatePanel("Objective Updated");
         }
     }
 

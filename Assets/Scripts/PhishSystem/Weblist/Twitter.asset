@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f701d6c80e5e9c468c346b2138e5065, type: 3}
   m_Name: Twitter
   m_EditorClassIdentifier: 
-  url: 
-  brand: 
+  url: https://twitter.com
+  brand: Twitter
   webSprite: {fileID: 0}
   isPhising: 0

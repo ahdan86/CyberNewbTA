@@ -7,8 +7,9 @@ using UnityEngine.Serialization;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; set; }
-    [FormerlySerializedAs("gameoverScreen")] public GameOverScreen gameOverScreen;
+    public GameOverScreen gameOverScreen;
     public PauseScreen pauseScreen;
+    public FinishScreen finishScreen;
     
     public void Awake()
     {
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
-        gameOverScreen.Setup();
+        gameOverScreen.SetupScreen();
     }
 
     public void Success(float money)
@@ -34,20 +35,20 @@ public class GameManager : MonoBehaviour
     {
         PauseScreen.isPaused = true;
         Time.timeScale = 0;
-        pauseScreen.Setup();
+        pauseScreen.SetupScreen();
+    }
+    
+    public void ResumeButton()
+    {
+        PauseScreen.isPaused = false;
+        Time.timeScale = 1;
+        pauseScreen.SetupScreen();
     }
 
     public void RestartButton()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void ResumeButton()
-    {
-        Time.timeScale = 1;
-        PauseScreen.isPaused = false;
-        pauseScreen.Setup();
     }
 
     public void ExitButton()

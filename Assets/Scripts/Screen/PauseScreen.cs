@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseScreen : MonoBehaviour
+public class PauseScreen : MonoBehaviour, Screen
 {
     public static bool isPaused = false;
-    public void Setup()
+    public void SetupScreen()
     {
         if (isPaused)
         {

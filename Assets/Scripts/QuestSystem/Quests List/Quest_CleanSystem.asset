@@ -10,18 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bfa9bec1d02d684396001faca366280, type: 3}
-  m_Name: Quest1_Phase5_CleanInfected
+  m_Name: Quest_CleanSystem
   m_EditorClassIdentifier: 
   state: 5
   objectives:
-  - type: 2
-    description: Clean the virus that infected all computers!
+  - type: 3
+    description: Must Clean All Infected Computers...
     mustCompleted: 1
     interactQuest: 
     openFileQuest: 
-  - type: 2
-    description: Clean the virus that infected the computers!
-    mustCompleted: 1
-    interactQuest: 
-    openFileQuest: Document_Real
-  questDescEng: I need to clean the virus on these infected computers
+  questDescEng: Clean all infected computers.

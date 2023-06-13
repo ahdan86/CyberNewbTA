@@ -89,8 +89,8 @@ namespace float_oat.Desktop90
         /// </summary>
         public void Open()
         {
-            QuestEvent.current.OpenFile(FileName);
             gameObject.SetActive(true);
+            QuestEvent.current.OpenFile(FileName ?? "");
             if (CanvasGroup != null && EnableFadeInAndFadeOutAnimation && FadeInTime > 0f)
             {
                 StartCoroutine(FadeInAnimation());

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOverScreen : MonoBehaviour
+public class GameOverScreen : MonoBehaviour, Screen
 {
-    public void Setup()
+    public void SetupScreen()
     {
         gameObject.SetActive(true);
     }

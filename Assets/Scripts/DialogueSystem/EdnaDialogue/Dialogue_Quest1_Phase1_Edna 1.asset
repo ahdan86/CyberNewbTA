@@ -16,26 +16,44 @@ MonoBehaviour:
   messages:
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Hi, Edna! I'm Gus, the new guy in the office.
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
     message: Hey, Gus! Welcome to the team. I'm Edna, the front desk assistant. Nice
       to meet you!
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: I'm excited to be here. Is there anything specific I should know about
       the office?
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
     message: Well, our CTO, Bryan, wants to meet you. Could you go to his office?
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Sure thing, Edna! Where is his office located?
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
     message: 'The office is right in front of my view. Straight ahead and you will
       see him. '
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Got it! I'll head over to Bryan's office right away. Thanks for letting
       me know.
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
     message: Good luck for your first day!
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: 'Thanks, Edna! I appreciate your help. '
+    choices: []
+    correctChoiceIndex: 0
   actors:
   - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
   - {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}

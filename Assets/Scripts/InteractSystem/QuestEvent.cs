@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class QuestEvent : MonoBehaviour
 {
@@ -23,15 +24,21 @@ public class QuestEvent : MonoBehaviour
         onOpenFile?.Invoke(fileName);
     }
 
+    public UnityEvent onAcceptFile;
+    public void AcceptFile()
+    {
+        onAcceptFile?.Invoke();
+    }
+
+    public UnityEvent<bool> onIsInfecting;
+    public void IsInfecting(bool status)
+    {
+        onIsInfecting?.Invoke(status);
+    }
+
     public UnityEvent<int> onSolve;
     public void Solve(int type)
     {
         onSolve?.Invoke(type);
-    }
-
-    public UnityEvent<string> test;
-    public void TestListener(string text)
-    {
-        test?.Invoke(text);
     }
 }

@@ -38,14 +38,16 @@ public class ObjectiveUI : MonoBehaviour
             
             List<Objective> objectives = quest.GetObjective();
             
+            int i = 1;
             foreach(var objective in objectives)
             {
                 GameObject objectiveUI = Instantiate(objectivePrefab, listObjectiveUI.transform);
                 objectiveUI.GetComponentInChildren<Text>().text =
-                    objective.description + " " +
+                    i + ". " + objective.description + " " +
                     quest.GetAmountCompletedObjective(objective)
                     + "/" + objective.mustCompleted;
                 objectiveUI.GetComponentInChildren<Text>().enabled = true;
+                i++;
             }
         }
     }

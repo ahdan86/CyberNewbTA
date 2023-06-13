@@ -31,7 +31,7 @@ public class LevelController : MonoBehaviour
     }
     private void Start()
     {
-        moneyText.text= money.ToString();
+        moneyText.text = "$ " + money.ToString("F1");
     }
 
     private void Update()
@@ -40,7 +40,7 @@ public class LevelController : MonoBehaviour
         {
             //Reduce money overtime
             money -= moneyReducer * Time.deltaTime;
-            moneyText.text = money.ToString("F2");
+            moneyText.text = "$ " + money.ToString("F1");
             
             infectedComputer = computers.Count(comp => comp.GetInfectedStatus());
             computerInfectedText.text = $"{infectedComputer} / {computers.Count}";
@@ -56,6 +56,7 @@ public class LevelController : MonoBehaviour
                 
                 if (!InfectedPanelUI.Instance.isOpen)
                 {
+                    QuestEvent.current.IsInfecting(true);
                     InfectedPanelUI.Instance.AnimateOpenPanel();
                     InfectedPanelUI.Instance.isOpen = true;
                 } 
@@ -64,6 +65,7 @@ public class LevelController : MonoBehaviour
             {
                 if (InfectedPanelUI.Instance.isOpen)
                 {
+                    QuestEvent.current.IsInfecting(false);
                     InfectedPanelUI.Instance.isOpen = false;
                     InfectedPanelUI.Instance.AnimateClosePanel();
                 }
@@ -74,6 +76,14 @@ public class LevelController : MonoBehaviour
                 isMainStarted = false;
                 GameManager.Instance.GameOver();
             }
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (PauseScreen.isPaused)
+                GameManager.Instance.ResumeButton();
+            else
+                GameManager.Instance.Paused();
         }
     }
 

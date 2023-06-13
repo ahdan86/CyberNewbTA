@@ -16,21 +16,38 @@ MonoBehaviour:
   messages:
   - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
     message: Huftt, this meeting is boring...
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Hey, are you Frank?
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
     message: Oi, I'm in the meeting right now >:(
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Ah, Sorry. Mr. Bryan told me that you have Flashdrive that contain my
       work document.
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
     message: Oh, You're the new intern? Wait a minute.
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
-    message: 'Here it is, you can use any computer. Beside Mr. Bryan room. '
+    message: Here it is, you can use any computer. If you have any doubt, you can
+      ask Bryan first.
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Okay, thanks. Sorry for bothering you.
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
     message: Anytime.
+    choices: []
+    correctChoiceIndex: 0
   actors:
   - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
   - {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}

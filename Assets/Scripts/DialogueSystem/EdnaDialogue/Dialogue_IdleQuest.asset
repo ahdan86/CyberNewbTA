@@ -16,10 +16,16 @@ MonoBehaviour:
   messages:
   - actor: {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
     message: Hey Gus, how's your first day?
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Still wandering around. Quite nice actually :)
+    choices: []
+    correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
     message: Enjoy!
+    choices: []
+    correctChoiceIndex: 0
   actors:
   - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
   - {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}

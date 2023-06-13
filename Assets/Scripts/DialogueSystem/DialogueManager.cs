@@ -13,14 +13,18 @@ public class DialogueManager : MonoBehaviour
 
     private Message[] _currentMessages;
     private Actor[] _currentActors;
-    private int _activeMessage = 0;
-    public static bool isActive = false;
+    private int _activeMessage;
+    public static bool isActive;
 
+    [SerializeField] private Text continueText;
     [SerializeField] private ThirdPersonController characterController;
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private Button[] buttonArray;
 
     public void OpenDialogue(Dialogue dialogueObject)
     {
+        Cursor.lockState = CursorLockMode.None;
+        
         _currentMessages = dialogueObject.messages;
         _currentActors = dialogueObject.actors;
         _activeMessage = 0;
@@ -38,23 +42,30 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayMessage()
     {
+
         Message message = _currentMessages[_activeMessage];
         Actor actor = GetActor(message.actor.actorId);
 
         actorImage.sprite = actor.sprite;
         actorName.text = actor.name;
         messageText.text = message.message;
+
+        AnimateTextColor();
         
         for (int i = 0; i < message.choices.Length; i++)
         {
-            // TODO: Display choices
+            int choiceIndex = i;
+            buttonArray[i].gameObject.SetActive(true);
+            buttonArray[i].GetComponentInChildren<Text>().text = message.choices[i];
+            buttonArray[i].onClick.AddListener(() => EvaluateChoice(choiceIndex));
         }
-
-        AnimateTextColor();
     }
     
-    public void EvaluateChoice(bool isCorrect)
+    public void EvaluateChoice(int choiceIndex)
     {
+        var message = _currentMessages[_activeMessage];
+        bool isCorrect = (choiceIndex == message.correctChoiceIndex);
+        
         if (isCorrect)
         {
             Debug.Log("Correct choice!");
@@ -72,15 +83,16 @@ public class DialogueManager : MonoBehaviour
         _activeMessage++;
         if (_activeMessage < _currentMessages.Length)
         {
-            // Hide choices
-            //for (int i = 0; i < buttonArray.Length; i++)
-            //{
-            //     buttonArray[i].gameObject.SetActive(false);
-            //}
+            for (int i = 0; i < buttonArray.Length; i++)
+            {
+                 buttonArray[i].gameObject.SetActive(false);
+            }
             DisplayMessage();
         }
         else
         {
+            Cursor.lockState = CursorLockMode.None;
+            
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 
@@ -120,7 +132,10 @@ public class DialogueManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isActive)
         {
-            NextMessage();
+            if (_currentMessages[_activeMessage].choices.Length < 1)
+            {
+                NextMessage();
+            }
         }
     }
 

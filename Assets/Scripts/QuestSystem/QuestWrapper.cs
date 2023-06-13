@@ -23,7 +23,8 @@ public class QuestWrapper : MonoBehaviour
         }
     }
 
-    public bool isConditionMet()
+    // ReSharper disable Unity.PerformanceAnalysis
+    public bool IsConditionMet()
     {
         foreach(var objective in quest.objectives)
         {
@@ -37,6 +38,7 @@ public class QuestWrapper : MonoBehaviour
         {
             inventory.SetHasContamined(true);
         }
+        
         Debug.Log("Quest Condition Met");
         return true;
     }
@@ -104,6 +106,6 @@ public class QuestWrapper : MonoBehaviour
     private void OnDestroy()
     {
         QuestEvent.current.onInteract.RemoveListener(Interact);
-        QuestEvent.current.onSolve.RemoveListener(Solve);
+        
     }
 }

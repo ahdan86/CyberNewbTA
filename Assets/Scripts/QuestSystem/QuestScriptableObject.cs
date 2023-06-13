@@ -17,10 +17,10 @@ public enum ObjectiveType : int
 {
     NONE = 0,
     INTERACT = 1,
-    SOLVE_VIRUS = 2,
-    SOLVE_PHISH = 3,
-    SOLVE_QUIZ = 4,
-    OPEN_FILE = 5,
+    SOLVE = 2,
+    CLEAN_INFECTED = 3,
+    OPEN_FILE = 4,
+    RUN_FILE = 5,
 }
 
 [Serializable]
