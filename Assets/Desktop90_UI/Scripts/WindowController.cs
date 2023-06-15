@@ -90,7 +90,6 @@ namespace float_oat.Desktop90
         public void Open()
         {
             gameObject.SetActive(true);
-            QuestEvent.current.OpenFile(FileName ?? "");
             if (CanvasGroup != null && EnableFadeInAndFadeOutAnimation && FadeInTime > 0f)
             {
                 StartCoroutine(FadeInAnimation());
@@ -100,8 +99,8 @@ namespace float_oat.Desktop90
             {
                 AudioSource.PlayOneShot(OnOpenAudioClip);
             }
-
             BringToFront();
+            QuestEvent.current.OpenFile(FileName ?? "");
         }
 
         private IEnumerator FadeInAnimation()

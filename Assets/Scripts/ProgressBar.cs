@@ -23,7 +23,6 @@ public class ProgressBar : MonoBehaviour
             );
         if (progressBarSprite.fillAmount >= targetFill)
         {
-            Debug.Log("Baru Penuh");
             SetProgressActive(false);
         }
     }

@@ -17,6 +17,14 @@ public class Message
 {
     [FormerlySerializedAs("actorId")] public Actor actor;
     public string message;
+    public InventoryGiveType inventoryGiveType = InventoryGiveType.NONE;
     public string[] choices; // Add choices array
     public int correctChoiceIndex;
+}
+
+public enum InventoryGiveType
+{
+    NONE,
+    FDVirus,
+    FDAntivirus,
 }

@@ -24,10 +24,10 @@ public class QuestEvent : MonoBehaviour
         onOpenFile?.Invoke(fileName);
     }
 
-    public UnityEvent onAcceptFile;
-    public void AcceptFile()
+    public UnityEvent onAcceptDocument;
+    public void AcceptDocument()
     {
-        onAcceptFile?.Invoke();
+        onAcceptDocument?.Invoke();
     }
 
     public UnityEvent<bool> onIsInfecting;

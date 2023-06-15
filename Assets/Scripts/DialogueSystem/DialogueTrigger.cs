@@ -18,14 +18,15 @@ public class DialogueTrigger : MonoBehaviour
         }
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void StartDialogue()
     {
         var activeQuests = QuestManager.Instance.GetActiveQuests();
         foreach (var quest in activeQuests)
         {
-            if (dialogueObjectsByQuestState.ContainsKey(quest.Key))
+            if (dialogueObjectsByQuestState.TryGetValue(quest.Key, out var value))
             {
-                FindObjectOfType<DialogueManager>().OpenDialogue(dialogueObjectsByQuestState[quest.Key]);
+                FindObjectOfType<DialogueManager>().OpenDialogue(value);
                 return;
             }
         }

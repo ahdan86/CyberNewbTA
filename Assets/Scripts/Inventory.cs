@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public bool HasFDContamined = false;
-    public bool HasFDAntivirus = false;
-    public bool HasFDContaminedCleaned = false;
+    public bool HasFDContamined;
+    public bool HasFDAntivirus;
+    public bool HasFDContaminedCleaned;
 
     private void Update()
     {

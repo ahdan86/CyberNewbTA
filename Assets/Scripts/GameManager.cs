@@ -7,9 +7,9 @@ using UnityEngine.Serialization;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; set; }
-    public GameOverScreen gameOverScreen;
-    public PauseScreen pauseScreen;
-    public FinishScreen finishScreen;
+    [FormerlySerializedAs("gameOverScreen")] public GameOverGameScreen gameOverGameScreen;
+    [FormerlySerializedAs("pauseScreen")] public PauseGameScreen pauseGameScreen;
+    [FormerlySerializedAs("finishScreen")] public FinishGameScreen finishGameScreen;
     
     public void Awake()
     {
@@ -20,34 +20,32 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Time.timeScale = 0;
-        Cursor.lockState = CursorLockMode.None;
-        gameOverScreen.SetupScreen();
+        gameOverGameScreen.SetupScreen();
     }
 
     public void Success(float money)
     {
         Time.timeScale = 0;
-        Cursor.lockState = CursorLockMode.None;
-        // TODO: Add Winning Screen UI (Both gameObject and Script)
+        finishGameScreen.SetupScreen();
+        finishGameScreen.SetMoneyText(money);
     }
 
     public void Paused()
     {
-        PauseScreen.isPaused = true;
+        PauseGameScreen.isPaused = true;
         Time.timeScale = 0;
-        pauseScreen.SetupScreen();
+        pauseGameScreen.SetupScreen();
     }
     
     public void ResumeButton()
     {
-        PauseScreen.isPaused = false;
+        PauseGameScreen.isPaused = false;
         Time.timeScale = 1;
-        pauseScreen.SetupScreen();
+        pauseGameScreen.SetupScreen();
     }
 
     public void RestartButton()
     {
-        Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

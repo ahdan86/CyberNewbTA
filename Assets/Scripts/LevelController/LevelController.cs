@@ -22,7 +22,12 @@ public class LevelController : MonoBehaviour
     [SerializeField] private Text computerInfectedText;
 
     [SerializeField] private bool isInfecting;
-    [FormerlySerializedAs("isStarted")] [SerializeField] private bool isMainStarted = false;
+    [SerializeField] private bool isMainStarted;
+    
+    [Header("Dialogue Trigger")]
+    [SerializeField] private Dialogue infectionDialogue;
+
+    private Coroutine _virusCoroutine;
 
     private void Awake()
     {
@@ -45,13 +50,13 @@ public class LevelController : MonoBehaviour
             infectedComputer = computers.Count(comp => comp.GetInfectedStatus());
             computerInfectedText.text = $"{infectedComputer} / {computers.Count}";
 
-            //Checking komputer lain
+            //Checking komputer apakah ada yang terinfeksi
             if (infectedComputer > 0)
             {
                 if (!isInfecting && infectedComputer < computers.Count)
                 {
                     isInfecting = true;
-                    StartCoroutine(InfectProgressCoroutine());
+                    _virusCoroutine = StartCoroutine(InfectProgressCoroutine());
                 }
                 
                 if (!InfectedPanelUI.Instance.isOpen)
@@ -59,6 +64,8 @@ public class LevelController : MonoBehaviour
                     QuestEvent.current.IsInfecting(true);
                     InfectedPanelUI.Instance.AnimateOpenPanel();
                     InfectedPanelUI.Instance.isOpen = true;
+                    
+                    FindObjectOfType<DialogueManager>().OpenDialogue(infectionDialogue);
                 } 
             }
             else
@@ -68,6 +75,9 @@ public class LevelController : MonoBehaviour
                     QuestEvent.current.IsInfecting(false);
                     InfectedPanelUI.Instance.isOpen = false;
                     InfectedPanelUI.Instance.AnimateClosePanel();
+                    
+                    StopCoroutine(_virusCoroutine);
+                    virusProgressBar.SetProgressActive(false);
                 }
             }
             
@@ -77,13 +87,9 @@ public class LevelController : MonoBehaviour
                 GameManager.Instance.GameOver();
             }
         }
-        
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (QuestManager.Instance.GetActiveQuests().Count <= 0)
         {
-            if (PauseScreen.isPaused)
-                GameManager.Instance.ResumeButton();
-            else
-                GameManager.Instance.Paused();
+            GameManager.Instance.Success(money);
         }
     }
 

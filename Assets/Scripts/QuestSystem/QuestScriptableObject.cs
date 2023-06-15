@@ -20,7 +20,7 @@ public enum ObjectiveType : int
     SOLVE = 2,
     CLEAN_INFECTED = 3,
     OPEN_FILE = 4,
-    RUN_FILE = 5,
+    ACCEPT_FILE = 5,
 }
 
 [Serializable]

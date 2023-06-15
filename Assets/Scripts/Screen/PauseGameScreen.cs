@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseScreen : MonoBehaviour, Screen
+public class PauseGameScreen : MonoBehaviour, GameScreen
 {
-    public static bool isPaused = false;
+    public static bool isPaused;
     public void SetupScreen()
     {
         if (isPaused)

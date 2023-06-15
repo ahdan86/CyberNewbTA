@@ -13,7 +13,6 @@ public class QuestController : MonoBehaviour
     {
         questManager.StartQuest(starterQuest);
         QuestEvent.current.onIsInfecting.AddListener(Infecting);
-        ObjectiveUI.Instance.UpdateObjectiveList();
     }
 
     private void Update()
@@ -36,10 +35,9 @@ public class QuestController : MonoBehaviour
                 }
                 else
                 {
-                    questManager.CompleteQuest(activeQuest);
                     questManager.StartQuest(nextQuest);
-
-                    ObjectiveUI.Instance.UpdateObjectiveList();
+                    questManager.CompleteQuest(activeQuest);
+                    
                     NotificationUI.Instance.AnimatePanel("Objective Updated");
                 }
             }
@@ -70,7 +68,6 @@ public class QuestController : MonoBehaviour
 
     private QuestWrapper GetNextQuest()
     {
-        Debug.Log("Masuk sini");
         if (questManager.IsQuestActive(QuestState.QUEST1_PHASE1_TALK_TO_EDNA))
         {
             return questsList

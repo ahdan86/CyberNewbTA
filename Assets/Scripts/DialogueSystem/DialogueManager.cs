@@ -20,6 +20,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private ThirdPersonController characterController;
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private Button[] buttonArray;
+    [SerializeField] private Inventory inventory;
 
     public void OpenDialogue(Dialogue dialogueObject)
     {
@@ -30,8 +31,6 @@ public class DialogueManager : MonoBehaviour
         _activeMessage = 0;
         isActive = true;
 
-        Debug.Log("Started Conversation with " + _currentActors[0].name);
-        
         // turn off movement, animator and 'E' display
         characterController.setCanMove(false);
         playerAnimator.enabled = false;
@@ -40,17 +39,27 @@ public class DialogueManager : MonoBehaviour
         backgroundBox.LeanScale(Vector3.one, 0.5f).setEaseInOutExpo();
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void DisplayMessage()
     {
 
         Message message = _currentMessages[_activeMessage];
         Actor actor = GetActor(message.actor.actorId);
 
-        actorImage.sprite = actor.sprite;
-        actorName.text = actor.name;
+        actorImage.sprite = actor.actorSprite;
+        actorName.text = actor.actorName;
         messageText.text = message.message;
 
         AnimateTextColor();
+
+        if (message.inventoryGiveType == InventoryGiveType.FDVirus)
+        {
+            inventory.SetHasContamined(true);
+        }
+        else if (message.inventoryGiveType == InventoryGiveType.FDAntivirus)
+        {
+            inventory.SetHasAntivirus(true);
+        }
         
         for (int i = 0; i < message.choices.Length; i++)
         {
@@ -98,14 +107,14 @@ public class DialogueManager : MonoBehaviour
 
             if (_currentActors.Length > 1)
             {
-                QuestEvent.current.Interact(_currentActors[1].name);
+                QuestEvent.current.Interact(_currentActors[1].actorName);
             }
 
             // turn on movement, animator and 'E' display
             characterController.setCanMove(true);
             playerAnimator.enabled = true;
             
-            Debug.Log("Ended Conversation with " + _currentActors[0].name);
+            Debug.Log("Ended Conversation with " + _currentActors[0].actorName);
         }
     }
 

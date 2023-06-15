@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 4
   objectives:
-  - type: 5
+  - type: 4
     description: Open document named "DocumentForWork"
     mustCompleted: 1
     interactQuest: 
     openFileQuest: DocumentReal
-  - type: 6
+  - type: 5
     description: Accept the document.
     mustCompleted: 1
     interactQuest: 

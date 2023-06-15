@@ -28,10 +28,10 @@ public class DesktopEvent : MonoBehaviour
         onCleanVirus?.Invoke(id);
     }
     
-    public UnityEvent<int, bool, bool> onOpenDesktopUI;
-    public void OpenDesktopUI(int id, bool infected, bool fileRestored)
+    public UnityEvent<int, bool> onOpenDesktopUI;
+    public void OpenDesktopUI(int id, bool infected)
     {
         Debug.Log("Event Computer id: " + id);
-        onOpenDesktopUI?.Invoke(id, infected, fileRestored);
+        onOpenDesktopUI?.Invoke(id, infected);
     }
 }

@@ -16,36 +16,44 @@ MonoBehaviour:
   messages:
   - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
     message: Huftt, this meeting is boring...
+    inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Hey, are you Frank?
+    inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
     message: Oi, I'm in the meeting right now >:(
+    inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Ah, Sorry. Mr. Bryan told me that you have Flashdrive that contain my
       work document.
+    inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
     message: Oh, You're the new intern? Wait a minute.
+    inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
     message: Here it is, you can use any computer. If you have any doubt, you can
       ask Bryan first.
+    inventoryGiveType: 1
     choices: []
     correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Okay, thanks. Sorry for bothering you.
+    inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
   - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
     message: Anytime.
+    inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
   actors:

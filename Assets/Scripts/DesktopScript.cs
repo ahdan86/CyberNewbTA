@@ -1,14 +1,9 @@
-    using float_oat.Desktop90;
-using PixelCrushers.DialogueSystem;
+using float_oat.Desktop90;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Rendering;
-using Mono.Cecil;
-    using UnityEngine.Serialization;
 
-    public class DesktopScript : MonoBehaviour
+public class DesktopScript : MonoBehaviour
 {
     [Header("Desktop Transform UI")]
     [SerializeField] private Transform contentTransform;
@@ -24,8 +19,7 @@ using Mono.Cecil;
 
     public bool isActive;
     public bool isInfected;
-    public bool isFileRestored;
-    
+
     [Header("Desktop Properties & UI")]
     [SerializeField] private ProgressBar infectVirusProgressBar;
     [SerializeField] private ProgressBar cleanVirusProgressBar;
@@ -64,11 +58,6 @@ using Mono.Cecil;
                 contentTransform.GetComponent<Image>().color =
                     Color.Lerp(Color.blue, Color.red, Mathf.PingPong(Time.time * 1.5f, 1));
             }
-            else
-            {
-                antiVirusWindowTransform.Find("Content").Find("DescText").GetComponent<Text>().text =
-                    "The Antivirus didn't find any virus on the computer.";
-            }
         }
     }
 
@@ -77,23 +66,22 @@ using Mono.Cecil;
         if (active)
         {
             gameObject.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
             if (inventory.HasFDContamined)
             {
-                if(isFileRestored)
-                    documentIconsTransform.gameObject.SetActive(true);
-                else 
-                    virusIconsTransform.gameObject.SetActive(true);
+                virusIconsTransform.gameObject.SetActive(true);
             }
             if (inventory.HasFDAntivirus)
             {
                 antiVirusIconsTransform.gameObject.SetActive(true);
             }
+            if(inventory.HasFDContaminedCleaned)
+            {
+                documentIconsTransform.gameObject.SetActive(true);
+            }
         }
         else
         {
             StartCoroutine(CloseAllWindows());
-            Cursor.lockState = CursorLockMode.Locked;
         }
         isActive = active;
     }
@@ -125,7 +113,7 @@ using Mono.Cecil;
 
     public void SolveAntiVirusPuzzle()
     {
-        if (isInfected)
+        if (isInfected || inventory.HasFDContamined)
         {
             StartCoroutine(CleanVirusProgressCoroutine());           
         }
@@ -148,10 +136,23 @@ using Mono.Cecil;
 
         if (calculator.Total == targetNumber)
         {
-            isInfected = false;
-            DesktopEvent.current.CleanVirus(computerId);
-            contentTransform.GetComponent<Image>().color = new Color32(0x91, 0xAB, 0x7E, 0xFF);
-            
+            if (isInfected)
+            {
+                isInfected = false;
+                DesktopEvent.current.CleanVirus(computerId);
+                contentTransform.GetComponent<Image>().color = new Color32(0x91, 0xAB, 0x7E, 0xFF);
+            }
+                
+            else if (inventory.HasFDContamined)
+            {
+                inventory.HasFDContamined = false;
+                inventory.HasFDContaminedCleaned = true;
+                NotificationUI.Instance.AnimatePanel("FlashDrive Cleaned");
+                
+                virusIconsTransform.gameObject.SetActive(false);
+                documentIconsTransform.gameObject.SetActive(true);
+            }
+
             SetAntiVirusWindow(false);
             yield return new WaitForSeconds(1f);
             antiVirusWindowTransform.gameObject.GetComponent<WindowController>().Close();
@@ -160,7 +161,10 @@ using Mono.Cecil;
         {
             targetText.text = "WRONG ANSWER";
             yield return new WaitForSeconds(1f);
-            SetAntiVirusWindow(true);
+            if(isInfected)
+                SetAntiVirusWindow(true);
+            else
+                SetAntiVirusWindow(false);
         }
         
         cleanVirusProgressBar.SetProgressValue(0f);
@@ -168,7 +172,10 @@ using Mono.Cecil;
     
     private void SetAntiVirusWindow(bool infectedStatus)
     {
+        antiVirusWindowTransform.Find("Content").Find("Puzzle").Find("Submit Button")
+            .GetComponent<Button>().interactable = true;
         calculator.Total = 0;
+        
         foreach(BitToggle toggle in calculator.bitToggles)
         {
             toggle.SetToggle(false);
@@ -181,11 +188,20 @@ using Mono.Cecil;
             targetNumber = Random.Range(0, 31);
             targetText.text = targetNumber.ToString();
         }
+        else if (inventory.HasFDContamined)
+        {
+            antiVirusWindowTransform.Find("Content").Find("DescText").GetComponent<Text>().text =
+                "You have a flash drive that is infected with a virus. Clean the virus to restore the files.";
+            targetNumber = Random.Range(0, 31);
+            targetText.text = targetNumber.ToString();
+        }
         else
         {
             antiVirusWindowTransform.Find("Content").Find("DescText").GetComponent<Text>().text =
-                "The Antivirus didn't find any virus on the computer.";
+                "The antivirus didn't find any virus on the computer.";
             targetText.text = "Not Infected";
+            antiVirusWindowTransform.Find("Content").Find("Puzzle").Find("Submit Button")
+                .GetComponent<Button>().interactable = false;
         }
     }
 
@@ -201,8 +217,24 @@ using Mono.Cecil;
             virusWindowTransform.gameObject.GetComponent<WindowController>().Close();
         }
     }
+    
+    IEnumerator VirusProgressCoroutine()
+    {
+        virusWindowTransform.Find("Content").Find("OK Button").GetComponent<Button>().interactable = false;
+        infectVirusProgressBar.SetProgressActive(true);
+        yield return new WaitUntil(() => infectVirusProgressBar.IsProgressCompleted());
+        
+        isInfected = true;
+        DesktopEvent.current.InfectComputer(computerId);
+        SetVirusWindow(true);
+        
+        yield return new WaitForSeconds(1f);
+        virusWindowTransform.gameObject.GetComponent<WindowController>().Close();
+        
+        infectVirusProgressBar.SetProgressValue(0f);
+    }
 
-    private void OnOpenDesktopUI(int id, bool infected, bool fileRestored)
+    private void OnOpenDesktopUI(int id, bool infected)
     {
         Debug.Log("Desktop Opened");
         isActive = true;
@@ -224,22 +256,6 @@ using Mono.Cecil;
         }
     }
 
-    IEnumerator VirusProgressCoroutine()
-    {
-        virusWindowTransform.Find("Content").Find("OK Button").GetComponent<Button>().interactable = false;
-        infectVirusProgressBar.SetProgressActive(true);
-        yield return new WaitUntil(() => infectVirusProgressBar.IsProgressCompleted());
-        
-        isInfected = true;
-        DesktopEvent.current.InfectComputer(computerId);
-        SetVirusWindow(true);
-        
-        yield return new WaitForSeconds(1f);
-        virusWindowTransform.gameObject.GetComponent<WindowController>().Close();
-        
-        infectVirusProgressBar.SetProgressValue(0f);
-    }
-
     private void SetVirusWindow(bool infectedStatus)
     {
         if (infectedStatus)
@@ -252,6 +268,11 @@ using Mono.Cecil;
             virusWindowTransform.Find("Content").Find("VirusDesc").GetComponent<Text>().text = "You must install this software to open DocumentToWorkForGus.docx";
             virusWindowTransform.Find("Content").Find("OK Button").GetComponent<Button>().interactable = true;
         }
+    }
+
+    public void AcceptDocument()
+    {
+        QuestEvent.current.AcceptDocument();
     }
 
     private void OnDestroy()

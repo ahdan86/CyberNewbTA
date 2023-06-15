@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -8,11 +9,9 @@ public class ObjectiveUI : MonoBehaviour
 {
     public static ObjectiveUI Instance { get; set; }
     
-    public GameObject questPrefab;
-    public GameObject objectivePrefab;
-    
     public Transform questContainer;
-    public GameObject objectiveContainer;
+    public GameObject questObjectPrefab;
+    public GameObject objectiveObjectPrefab;
 
     private void Awake()
     {
@@ -20,6 +19,7 @@ public class ObjectiveUI : MonoBehaviour
             Instance = this;
     }
     
+    // ReSharper disable Unity.PerformanceAnalysis
     public void UpdateObjectiveList()
     {
         var activeQuests = QuestManager.Instance.GetActiveQuests();
@@ -32,19 +32,21 @@ public class ObjectiveUI : MonoBehaviour
         foreach (var questPair in activeQuests)
         {
             QuestWrapper quest = questPair.Value;
-            GameObject questUI = Instantiate(questPrefab, questContainer);
-            GameObject listObjectiveUI = Instantiate(objectiveContainer, questContainer);
-            questUI.GetComponentInChildren<Text>().text = quest.GetQuestDescription();
+            GameObject questObjectUI = Instantiate(questObjectPrefab, questContainer);
+            
+            var objectiveContainer = questObjectUI.transform.Find("ListObjectiveContainer");
+            var questText = questObjectUI.transform.Find("Quest Text").gameObject;
+            questText.GetComponentInChildren<Text>().text = quest.GetQuestDescription();
             
             List<Objective> objectives = quest.GetObjective();
             
             int i = 1;
             foreach(var objective in objectives)
             {
-                GameObject objectiveUI = Instantiate(objectivePrefab, listObjectiveUI.transform);
+                GameObject objectiveUI = Instantiate(objectiveObjectPrefab, objectiveContainer);
                 objectiveUI.GetComponentInChildren<Text>().text =
                     i + ". " + objective.description + " " +
-                    quest.GetAmountCompletedObjective(objective)
+                    quest.GetAmountCompletedObjective(i-1)
                     + "/" + objective.mustCompleted;
                 objectiveUI.GetComponentInChildren<Text>().enabled = true;
                 i++;

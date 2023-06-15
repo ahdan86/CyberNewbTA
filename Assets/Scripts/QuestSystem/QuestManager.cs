@@ -23,6 +23,8 @@ public class QuestManager : MonoBehaviour
         if (!activeQuests.ContainsKey(quest.GetQuestState()))
         {
             activeQuests.Add(quest.GetQuestState(), quest);
+            quest.gameObject.SetActive(true);
+            ObjectiveUI.Instance.UpdateObjectiveList();
         }
         else
         {
@@ -35,6 +37,7 @@ public class QuestManager : MonoBehaviour
         if (activeQuests.ContainsKey(quest.GetQuestState()))
         {
             activeQuests.Remove(quest.GetQuestState());
+            quest.gameObject.SetActive(false);
             ObjectiveUI.Instance.UpdateObjectiveList();
         }
     }

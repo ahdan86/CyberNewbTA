@@ -1,22 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using DG.Tweening;
-using float_oat.Desktop90;
-using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
 public class Computer : MonoBehaviour, IInteractable
 {
     [FormerlySerializedAs("_interactionPromptUI")] [SerializeField] private WorldSpaceObjectUI worldSpaceObjectUI;
-    [SerializeField] private string _prompt;
-    public string InteractionName => _prompt;
+    [FormerlySerializedAs("_prompt")] [SerializeField] private string prompt;
+    public string InteractionName => prompt;
 
     [Header("Computer Properties")]
     [SerializeField] private bool virusInfected;
-
-    [SerializeField] private bool fileRestored;
     [SerializeField] private int computerId;
 
     [Header("Dialogue Trigger")]
@@ -40,7 +34,7 @@ public class Computer : MonoBehaviour, IInteractable
             Debug.Log("The Player have the FD in the inventory");
             Debug.Log("Interacting with computer");
             
-            DesktopEvent.current.OpenDesktopUI(computerId, virusInfected, fileRestored);
+            DesktopEvent.current.OpenDesktopUI(computerId, virusInfected);
            
             return true;
         }
@@ -52,8 +46,11 @@ public class Computer : MonoBehaviour, IInteractable
 
     public void InfectComputerById(int id)
     {
-        if(id == computerId)
+        if (id == computerId)
+        {
             virusInfected = true;
+            gameObject.GetComponent<Outline>().enabled = true;
+        }
     }
 
     public void CleanInfectedById(int id)
@@ -61,7 +58,7 @@ public class Computer : MonoBehaviour, IInteractable
         if (id == computerId)
         {
             virusInfected = false;
-            fileRestored = true;
+            gameObject.GetComponent<Outline>().enabled = false;
         }
     }
 
@@ -83,6 +80,7 @@ public class Computer : MonoBehaviour, IInteractable
     public void SetInfectComputer()
     {
         virusInfected = true; 
+        gameObject.GetComponent<Outline>().enabled = true;
     }
 
     public void OnDestroy()
