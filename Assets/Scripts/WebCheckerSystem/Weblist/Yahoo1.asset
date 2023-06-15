@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f701d6c80e5e9c468c346b2138e5065, type: 3}
-  m_Name: Facebook1
+  m_Name: Yahoo1
   m_EditorClassIdentifier: 
-  url: https://anandsr-dev.github.io/facebookclone/
-  brand: Facebook
-  webSprite: {fileID: 0}
+  url: https://service-maile-27b1.7ss.workers.dev/
+  brand: Yahoo
+  webSprite: {fileID: 21300000, guid: 8a8c6d47558e8d94086243a2e626fb35, type: 3}
   isPhising: 1

@@ -31,9 +31,6 @@ public class Computer : MonoBehaviour, IInteractable
         
         if (inventory.HasFDContamined || inventory.HasFDAntivirus)
         {
-            Debug.Log("The Player have the FD in the inventory");
-            Debug.Log("Interacting with computer");
-            
             DesktopEvent.current.OpenDesktopUI(computerId, virusInfected);
            
             return true;

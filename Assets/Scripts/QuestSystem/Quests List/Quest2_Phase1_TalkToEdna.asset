@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f701d6c80e5e9c468c346b2138e5065, type: 3}
-  m_Name: VulcanGoods
+  m_Script: {fileID: 11500000, guid: 6bfa9bec1d02d684396001faca366280, type: 3}
+  m_Name: Quest2_Phase1_TalkToEdna
   m_EditorClassIdentifier: 
-  url: https://vulcansportinggoods.com/
-  brand: Vulcan Sporting Goods
-  webSprite: {fileID: 0}
-  isPhising: 0
+  state: 0
+  objectives: []
+  questDescEng: 

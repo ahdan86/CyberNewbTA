@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f701d6c80e5e9c468c346b2138e5065, type: 3}
-  m_Name: StackExchange
+  m_Name: StackOverflow
   m_EditorClassIdentifier: 
   url: https://stackoverflow.com/users/login
   brand: StackOverflow
-  webSprite: {fileID: 0}
+  webSprite: {fileID: 21300000, guid: 9f66649945911854a9cb6d5b2d2cb6c9, type: 3}
   isPhising: 0

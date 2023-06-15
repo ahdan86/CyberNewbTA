@@ -17,6 +17,8 @@ public class DesktopScript : MonoBehaviour
     [SerializeField] private Transform documentIconsTransform;
     [SerializeField] private Transform documentWindowTransform;
 
+    [SerializeField] private WebsiteChecker websiteChecker;
+
     public bool isActive;
     public bool isInfected;
 
