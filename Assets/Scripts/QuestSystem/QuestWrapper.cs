@@ -23,8 +23,8 @@ public class QuestWrapper : MonoBehaviour
     {
         QuestEvent.current.onInteract.AddListener(Interact);
         QuestEvent.current.onSolve.AddListener(Solve);
-        QuestEvent.current.onOpenFile.AddListener(OpenFile);
-        QuestEvent.current.onAcceptDocument.AddListener(AcceptDocument);
+        DesktopEvent.current.onOpenFile.AddListener(OpenFile);
+        DesktopEvent.current.onAcceptDocument.AddListener(AcceptDocument);
     }
 
     // ReSharper disable Unity.PerformanceAnalysis

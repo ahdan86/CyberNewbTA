@@ -29,6 +29,16 @@ public class GameManager : MonoBehaviour
         finishGameScreen.SetupScreen();
         finishGameScreen.SetMoneyText(money);
     }
+    
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void QuitLevel()
+    {
+        //TODO: add quit level
+    }
 
     public void Paused()
     {

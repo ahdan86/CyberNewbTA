@@ -11,6 +11,8 @@ using Random = UnityEngine.Random;
 public class LevelController : MonoBehaviour
 {
     public static LevelController Instance { get; set; }
+    
+    [Header("Game Core Management")]
     public List<Computer> computers;
     public ProgressBar virusProgressBar;
     
@@ -20,15 +22,19 @@ public class LevelController : MonoBehaviour
     
     [SerializeField] private int infectedComputer;
     [SerializeField] private Text computerInfectedText;
-
-    [SerializeField] private bool isInfecting;
-    [SerializeField] private bool isMainStarted;
     
-    [Header("Dialogue Trigger")]
-    [SerializeField] private Dialogue infectionDialogue;
-
     private Coroutine _virusCoroutine;
 
+    [Header("Level Management")]
+    [SerializeField] private bool isInfecting;
+    [SerializeField] private bool isMainStarted;
+
+    [Header("Dialogue Trigger")]
+    [SerializeField] private Dialogue infectionDialogue;
+    
+    [Header("Weblists")]
+    [SerializeField] private List<Website> webLists;
+    
     private void Awake()
     {
         if(Instance == null)
@@ -107,6 +113,12 @@ public class LevelController : MonoBehaviour
         }
         virusProgressBar.SetProgressValue(0);
         isInfecting = false;
+    }
+    
+    public void ReduceMoney(float amount)
+    {
+        money -= amount;
+        moneyText.text = "$ " + money.ToString("F1");
     }
     
     public void StartGame()

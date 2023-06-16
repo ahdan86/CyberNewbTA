@@ -18,18 +18,6 @@ public class QuestEvent : MonoBehaviour
         onInteract?.Invoke(name);
     }
 
-    public UnityEvent<string> onOpenFile;
-    public void OpenFile(string fileName)
-    {
-        onOpenFile?.Invoke(fileName);
-    }
-
-    public UnityEvent onAcceptDocument;
-    public void AcceptDocument()
-    {
-        onAcceptDocument?.Invoke();
-    }
-
     public UnityEvent<bool> onIsInfecting;
     public void IsInfecting(bool status)
     {

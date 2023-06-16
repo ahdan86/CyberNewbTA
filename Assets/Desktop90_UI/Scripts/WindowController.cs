@@ -100,7 +100,7 @@ namespace float_oat.Desktop90
                 AudioSource.PlayOneShot(OnOpenAudioClip);
             }
             BringToFront();
-            QuestEvent.current.OpenFile(FileName ?? "");
+            DesktopEvent.current.OpenFile(FileName ?? "");
         }
 
         private IEnumerator FadeInAnimation()

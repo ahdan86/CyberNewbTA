@@ -17,8 +17,6 @@ public class DesktopScript : MonoBehaviour
     [SerializeField] private Transform documentIconsTransform;
     [SerializeField] private Transform documentWindowTransform;
 
-    [SerializeField] private WebsiteChecker websiteChecker;
-
     public bool isActive;
     public bool isInfected;
 
@@ -274,7 +272,7 @@ public class DesktopScript : MonoBehaviour
 
     public void AcceptDocument()
     {
-        QuestEvent.current.AcceptDocument();
+        DesktopEvent.current.AcceptDocument();
     }
 
     private void OnDestroy()

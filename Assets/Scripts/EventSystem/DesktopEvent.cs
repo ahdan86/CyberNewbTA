@@ -34,4 +34,16 @@ public class DesktopEvent : MonoBehaviour
         Debug.Log("Event Computer id: " + id);
         onOpenDesktopUI?.Invoke(id, infected);
     }
+    
+    public UnityEvent<string> onOpenFile;
+    public void OpenFile(string fileName)
+    {
+        onOpenFile?.Invoke(fileName);
+    }
+
+    public UnityEvent onAcceptDocument;
+    public void AcceptDocument()
+    {
+        onAcceptDocument?.Invoke();
+    }
 }
