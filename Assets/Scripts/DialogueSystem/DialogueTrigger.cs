@@ -17,8 +17,7 @@ public class DialogueTrigger : MonoBehaviour
             dialogueObjectsByQuestState[dialogueObject.questState] = dialogueObject;
         }
     }
-
-    // ReSharper disable Unity.PerformanceAnalysis
+    
     public void StartDialogue()
     {
         var activeQuests = QuestManager.Instance.GetActiveQuests();

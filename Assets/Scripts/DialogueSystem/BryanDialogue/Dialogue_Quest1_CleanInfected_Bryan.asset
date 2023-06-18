@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf2eef786ba575448fb2592e80bafd8, type: 3}
   m_Name: Dialogue_Quest1_CleanInfected_Bryan
   m_EditorClassIdentifier: 
-  questState: 5
+  questState: 8
   messages:
   - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
     message: Hey, I heard one of our computer is infected. Is that true?

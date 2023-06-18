@@ -17,7 +17,7 @@ public enum ObjectiveType : int
 {
     NONE = 0,
     INTERACT = 1,
-    SOLVE = 2,
+    SOLVE_PHISHING = 2,
     CLEAN_INFECTED = 3,
     OPEN_FILE = 4,
     ACCEPT_FILE = 5,

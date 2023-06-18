@@ -49,16 +49,15 @@ public class LevelController : MonoBehaviour
     {
         if (isMainStarted)
         {
-            //Reduce money overtime
-            money -= moneyReducer * Time.deltaTime;
-            moneyText.text = "$ " + money.ToString("F1");
-            
             infectedComputer = computers.Count(comp => comp.GetInfectedStatus());
             computerInfectedText.text = $"{infectedComputer} / {computers.Count}";
 
             //Checking komputer apakah ada yang terinfeksi
             if (infectedComputer > 0)
             {
+                money -= moneyReducer * Time.deltaTime;
+                moneyText.text = "$ " + money.ToString("F1");
+                
                 if (!isInfecting && infectedComputer < computers.Count)
                 {
                     isInfecting = true;
@@ -76,6 +75,9 @@ public class LevelController : MonoBehaviour
             }
             else
             {
+                money -= moneyReducer * 1.2f * Time.deltaTime;
+                moneyText.text = "$ " + money.ToString("F1");
+                
                 if (InfectedPanelUI.Instance.isOpen)
                 {
                     QuestEvent.current.IsInfecting(false);
@@ -118,11 +120,26 @@ public class LevelController : MonoBehaviour
     public void ReduceMoney(float amount)
     {
         money -= amount;
-        moneyText.text = "$ " + money.ToString("F1");
     }
     
     public void StartGame()
     {
         isMainStarted = true;
+    }
+
+    public void StartInfectComputer(int amount)
+    {
+        if (amount <= computers.Count)
+        {
+            for (int i = 0; i < amount; i++)
+            {
+                Debug.Log($"infecting {i} times");
+                computers[i].SetInfectComputer();
+            }
+        }
+        else
+        {
+            Debug.Log("More than computer count");
+        }
     }
 }

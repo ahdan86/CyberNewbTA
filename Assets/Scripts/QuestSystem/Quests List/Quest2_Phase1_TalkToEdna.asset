@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfa9bec1d02d684396001faca366280, type: 3}
   m_Name: Quest2_Phase1_TalkToEdna
   m_EditorClassIdentifier: 
-  state: 1
+  state: 5
   objectives:
   - type: 1
     description: Talk to Edna again..

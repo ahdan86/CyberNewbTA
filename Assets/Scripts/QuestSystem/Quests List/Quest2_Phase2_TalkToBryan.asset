@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bfa9bec1d02d684396001faca366280, type: 3}
-  m_Name: Quest1_Phase2_Bryan
+  m_Name: Quest2_Phase2_TalkToBryan
   m_EditorClassIdentifier: 
-  state: 2
+  state: 6
   objectives:
   - type: 1
-    description: I need to see Bryan so i get my task for my first day
+    description: Get list of tasks from Bryan.
     mustCompleted: 1
     interactQuest: Bryan
     openFileQuest: 
-  questDescEng: Meet the CTO
+  questDescEng: Second day, Second work

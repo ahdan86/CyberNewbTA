@@ -24,8 +24,6 @@ public class DialogueManager : MonoBehaviour
 
     public void OpenDialogue(Dialogue dialogueObject)
     {
-        Cursor.lockState = CursorLockMode.None;
-        
         _currentMessages = dialogueObject.messages;
         _currentActors = dialogueObject.actors;
         _activeMessage = 0;
@@ -100,8 +98,6 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            Cursor.lockState = CursorLockMode.None;
-            
             isActive = false;
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
 

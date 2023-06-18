@@ -154,8 +154,8 @@ public class DesktopScript : MonoBehaviour
             }
 
             SetAntiVirusWindow(false);
-            yield return new WaitForSeconds(1f);
-            antiVirusWindowTransform.gameObject.GetComponent<WindowController>().Close();
+            yield return new WaitForSeconds(0.5f);
+            //antiVirusWindowTransform.gameObject.GetComponent<WindowController>().Close();
         }
         else
         {

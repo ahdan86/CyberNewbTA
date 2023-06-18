@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class QuestController : MonoBehaviour
@@ -8,11 +9,13 @@ public class QuestController : MonoBehaviour
     public List<QuestWrapper> questsList;
     [SerializeField] private QuestManager questManager;
     public QuestWrapper starterQuest;
+    private bool _levelControllerMethodsCalled;
     
     private void Start()
     {
         questManager.StartQuest(starterQuest);
         QuestEvent.current.onIsInfecting.AddListener(Infecting);
+        _levelControllerMethodsCalled = false;
     }
 
     private void Update()
@@ -25,6 +28,10 @@ public class QuestController : MonoBehaviour
                 if (nextQuest == null)
                 {
                     if (activeQuest.GetQuestState() == QuestState.QUEST1_PHASE4_OPEN_DOCUMENT)
+                    {
+                        questManager.CompleteQuest(activeQuest);
+                    }
+                    else if (activeQuest.GetQuestState() == QuestState.QUEST2_PHASE3_COMPLETE_WEBCHECKS)
                     {
                         questManager.CompleteQuest(activeQuest);
                     }
@@ -78,7 +85,11 @@ public class QuestController : MonoBehaviour
         
         if (questManager.IsQuestActive(QuestState.QUEST1_PHASE2_TALK_TO_BRYAN))
         {
-            LevelController.Instance.StartGame();
+            if (!_levelControllerMethodsCalled)
+            {
+                LevelController.Instance.StartGame();
+                _levelControllerMethodsCalled = true;
+            }
             return questsList
                 .FirstOrDefault(   
                     quest => quest.GetQuestState() == QuestState.QUEST1_PHASE3_GET_FD_FROM_FRANK
@@ -89,6 +100,27 @@ public class QuestController : MonoBehaviour
             return questsList
                 .FirstOrDefault(
                     quest => quest.GetQuestState() == QuestState.QUEST1_PHASE4_OPEN_DOCUMENT
+                );
+        }
+        if(questManager.IsQuestActive(QuestState.QUEST2_PHASE1_TALK_TO_EDNA))
+        {
+            return questsList
+                .FirstOrDefault(
+                    quest => quest.GetQuestState() == QuestState.QUEST2_PHASE2_TALK_TO_BRYAN
+                );
+        }
+
+        if (questManager.IsQuestActive(QuestState.QUEST2_PHASE2_TALK_TO_BRYAN))
+        {
+            if (!_levelControllerMethodsCalled)
+            {
+                LevelController.Instance.StartGame();
+                LevelController.Instance.StartInfectComputer(3);
+                _levelControllerMethodsCalled = true;
+            }
+            return questsList
+                .FirstOrDefault(
+                    quest => quest.GetQuestState() == QuestState.QUEST2_PHASE3_COMPLETE_WEBCHECKS
                 );
         }
         return null;

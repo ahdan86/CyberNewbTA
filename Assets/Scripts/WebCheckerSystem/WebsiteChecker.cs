@@ -8,38 +8,59 @@ using UnityEngine.UI;
 
 public enum WebcheckerState
 {
-    NONE,
-    LOADING,
-    LOADED,
+    None,
+    Loading,
+    Loaded,
 }
 public class WebsiteChecker : MonoBehaviour
 {
     [Header("Windows Properties")]
     [SerializeField] private WindowController wrongWindow;
     [SerializeField] private WindowController correctWindow;
+    [SerializeField] private WindowController timesUpWindow;
 
     [SerializeField] private GameObject mainWebChecker;
     [SerializeField] private Image webImage;
     [SerializeField] private InputField webBrand;
     [SerializeField] private InputField webUrl;
     [SerializeField] private Toggle toggleOn;
+    [SerializeField] private Text counterText;
+    private Coroutine _counterCoroutine;
+    
     [SerializeField] private GameObject loadingWebChecker;
     [SerializeField] private GameObject noneWebChecker;
     [SerializeField] private GameObject browser;
+    
 
+    [FormerlySerializedAs("websitesList")]
     [Header("Active Website")]
-    [SerializeField] private List<Website> websitesList;
-    private LinkedList<Website> _websitesListClone;
+    [SerializeField] private List<Website> allWebsitesList;
+    [SerializeField] private int phishWebCount;
+    [SerializeField] private int nonPhishWebCount;
+    
+    private LinkedList<Website> _websitesLinkedList;
     private LinkedListNode<Website> _currentWebsiteNode;
     private Website _currentWebsite;
 
     private void OnEnable()
     {
-        _websitesListClone = new LinkedList<Website>(websitesList);
-        if (_websitesListClone.Count > 0)
+        var splitWeb = 
+            allWebsitesList
+                .GroupBy(web => web.isPhising)
+                .ToDictionary(x => x.Key, z => z.ToArray());
+        var phishingWebsites = splitWeb[true];
+        var nonPhishingWebsites = splitWeb[false];
+        
+        _websitesLinkedList = new LinkedList<Website>();
+        for(int i = 0; i < phishWebCount; i++)
+            _websitesLinkedList.AddLast(phishingWebsites[Random.Range(0, phishingWebsites.Length)]);
+        for(int i = 0; i < nonPhishWebCount; i++)
+            _websitesLinkedList.AddLast(nonPhishingWebsites[Random.Range(0, nonPhishingWebsites.Length)]);
+        
+        if (_websitesLinkedList.Count > 0)
         {
-            RandomizeOrder(_websitesListClone);
-            _currentWebsiteNode = _websitesListClone.First;
+            RandomizeOrder(_websitesLinkedList);
+            _currentWebsiteNode = _websitesLinkedList.First;
             _currentWebsite = _currentWebsiteNode.Value;
         }
 
@@ -48,18 +69,18 @@ public class WebsiteChecker : MonoBehaviour
 
     IEnumerator ChangeScreen()
     {
-        SetScreen(WebcheckerState.LOADING);
+        SetScreen(WebcheckerState.Loading);
         yield return new WaitForSeconds(0.75f);
-        SetScreen(_websitesListClone.Count > 0 ? WebcheckerState.LOADED : WebcheckerState.NONE);
+        SetScreen(_websitesLinkedList.Count > 0 ? WebcheckerState.Loaded : WebcheckerState.None);
     }
 
     private void SetScreen(WebcheckerState state)
     {
-        mainWebChecker.SetActive(state == WebcheckerState.LOADED);
-        loadingWebChecker.SetActive(state == WebcheckerState.LOADING);
-        noneWebChecker.SetActive(state == WebcheckerState.NONE);
+        mainWebChecker.SetActive(state == WebcheckerState.Loaded);
+        loadingWebChecker.SetActive(state == WebcheckerState.Loading);
+        noneWebChecker.SetActive(state == WebcheckerState.None);
 
-        if (state == WebcheckerState.LOADED)
+        if (state == WebcheckerState.Loaded)
         {
             LoadWebChecker();
         }
@@ -70,10 +91,28 @@ public class WebsiteChecker : MonoBehaviour
         webImage.sprite = _currentWebsite.webSprite;
         webBrand.text = _currentWebsite.brand;
         webUrl.text = _currentWebsite.url;
+        _counterCoroutine = StartCoroutine(CountDown());
+    }
+
+    IEnumerator CountDown()
+    {
+        counterText.text = "5";
+        int counter = 5;
+        while (counter >= 0)
+        {
+            yield return new WaitForSeconds(1f);
+            counter--;
+            counterText.text = counter.ToString();
+        }
+        LevelController.Instance.ReduceMoney(25f);
+
+        StartCoroutine(PopUpAnswer(timesUpWindow));
+        ChangeWebsite();
     }
 
     public void Submit()
     {
+        StopCoroutine(_counterCoroutine);
         var toggleStatus = toggleOn.isOn;
         bool isAnswerCorrect = toggleStatus == _currentWebsite.isPhising;
         
@@ -81,14 +120,20 @@ public class WebsiteChecker : MonoBehaviour
             LevelController.Instance.ReduceMoney(50f);
         else
         {
+            QuestEvent.current.Solve((int)ObjectiveType.SOLVE_PHISHING);
             var temp = _currentWebsiteNode;
-            _websitesListClone.Remove(temp);
+            _websitesLinkedList.Remove(temp);
         }
-        StartCoroutine(SubmitAnswer(isAnswerCorrect ? correctWindow : wrongWindow));
+        StartCoroutine(PopUpAnswer(isAnswerCorrect ? correctWindow : wrongWindow));
         
-        if (_websitesListClone.Count > 0)
+        ChangeWebsite();
+    }
+    
+    private void ChangeWebsite()
+    {
+        if (_websitesLinkedList.Count > 0)
         {
-            _currentWebsiteNode = _currentWebsiteNode.Next ?? _websitesListClone.First;
+            _currentWebsiteNode = _currentWebsiteNode.Next ?? _websitesLinkedList.First;
             _currentWebsite = _currentWebsiteNode.Value;
         }
         else
@@ -98,7 +143,7 @@ public class WebsiteChecker : MonoBehaviour
         }
     }
     
-    IEnumerator SubmitAnswer(WindowController selectedWindow)
+    IEnumerator PopUpAnswer(WindowController selectedWindow)
     {
         selectedWindow.Open();
         yield return new WaitForSeconds(0.75f);
@@ -109,7 +154,6 @@ public class WebsiteChecker : MonoBehaviour
 
     public void OpenBrowser()
     {
-        string link = webUrl.text;
         browser.GetComponent<WindowController>().Open();
         // browser.GetComponent<WebBrowser>().LoadMySite(link);
     }

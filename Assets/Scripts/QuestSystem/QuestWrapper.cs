@@ -111,7 +111,6 @@ public class QuestWrapper : MonoBehaviour
     public int GetAmountCompletedObjective(int index)
     {
         return objectivesAmountCompletedTracker.ElementAt(index).Value;
-        // return 0;
     }
 
     private void OnDestroy()

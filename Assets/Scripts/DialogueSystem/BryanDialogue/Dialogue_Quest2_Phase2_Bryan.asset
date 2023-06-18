@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf2eef786ba575448fb2592e80bafd8, type: 3}
+  m_Name: Dialogue_Quest2_Phase2_Bryan
+  m_EditorClassIdentifier: 
+  questState: 6
+  messages:
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: Hello Mr. Bryan.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: Ah, hello Gus!
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: OK first, quick update. The virus is reappearing on our computers.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: So, you must clean it ASAP, here is the antivirus flashdrive, just like
+      yesterday.
+    inventoryGiveType: 2
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: On it.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: And you have 1 more task..
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: You know about phishing right?
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: I just kind of know it, but not very well. Why?
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: Can you help us check which websites are phishing in the "Webchecker"
+      application?
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: Just put the check on phishing websites.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: The phishing one is often impersonating the original website to collect
+      your private data like user and password stuff.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: Can you do it?
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: Sure, why not.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: Remember, If you make a mistake during the check, then your money will
+      be deducted 50 for each mistake.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: There is time limit too. So be fast.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: Good luck!
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+  actors:
+  - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+  - {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}

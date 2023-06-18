@@ -10,13 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bfa9bec1d02d684396001faca366280, type: 3}
-  m_Name: Quest1_Phase2_Bryan
+  m_Name: Quest2_Phase3_CompleteWebchecks
   m_EditorClassIdentifier: 
-  state: 2
+  state: 7
   objectives:
-  - type: 1
-    description: I need to see Bryan so i get my task for my first day
+  - type: 4
+    description: Open WebChecker App
     mustCompleted: 1
-    interactQuest: Bryan
+    interactQuest: 
+    openFileQuest: WebChecker
+  - type: 2
+    description: Check the phising website, complete the webchecker.
+    mustCompleted: 7
+    interactQuest: 
     openFileQuest: 
-  questDescEng: Meet the CTO
+  questDescEng: Complete Webchecker

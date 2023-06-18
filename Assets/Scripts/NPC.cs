@@ -23,11 +23,6 @@ public class NPC : MonoBehaviour, IInteractable
         dialogueTrigger.StartDialogue();
     }
 
-    private void Update()
-    {
-        
-    }
-
     public void SetUpPromptUI()
     {
         worldSpaceObjectUI.SetUp();
