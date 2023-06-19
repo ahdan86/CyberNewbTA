@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ccf2eef786ba575448fb2592e80bafd8, type: 3}
-  m_Name: Dialogue_CleanInfected_Bryan
+  m_Name: Incorrect_Edna
   m_EditorClassIdentifier: 
-  questState: 10
+  questState: 0
   messages:
-  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
-    message: Dont forget to clean all of the infected computers!
+  - actor: {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
+    message: Not in good condition huh?
     inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
     ifIncorrectDialogue: {fileID: 0}
   actors:
-  - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
-  - {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+  - {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}

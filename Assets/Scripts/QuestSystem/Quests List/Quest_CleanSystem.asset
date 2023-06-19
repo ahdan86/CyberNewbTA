@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfa9bec1d02d684396001faca366280, type: 3}
   m_Name: Quest_CleanSystem
   m_EditorClassIdentifier: 
-  state: 8
+  state: 10
   objectives:
-  - type: 3
+  - type: 4
     description: Must Clean All Infected Computers...
     mustCompleted: 1
     interactQuest: 

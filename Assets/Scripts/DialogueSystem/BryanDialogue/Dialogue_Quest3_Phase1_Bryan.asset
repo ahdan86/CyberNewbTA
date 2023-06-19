@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf2eef786ba575448fb2592e80bafd8, type: 3}
+  m_Name: Dialogue_Quest3_Phase1_Bryan
+  m_EditorClassIdentifier: 
+  questState: 8
+  messages:
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: Hey boss, how are you.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: I'm fine thank you. How about you?
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: I'm fine too.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: Well you should be. There are more tasks for you.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: Like yesterday?
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: Pretty much, but there is more.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: The others likely want to get your help.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: What help?
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: About computer stuff. They will ask you some question, and you just
+      need to answer.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: Simple.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: On it sir.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: Other tasks is just same like yesterday.
+    inventoryGiveType: 2
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: Goodluck!
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  actors:
+  - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+  - {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}

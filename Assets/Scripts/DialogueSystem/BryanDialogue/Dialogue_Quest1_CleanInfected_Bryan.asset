@@ -12,35 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf2eef786ba575448fb2592e80bafd8, type: 3}
   m_Name: Dialogue_Quest1_CleanInfected_Bryan
   m_EditorClassIdentifier: 
-  questState: 8
+  questState: 10
   messages:
   - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
     message: Hey, I heard one of our computer is infected. Is that true?
     inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Yeah sorry sir, the document is infected with virus and infected the
       computer.
     inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
     message: Well, you can always clean it with antivirus. Here is the antivirus
       flashdrive.
     inventoryGiveType: 2
     choices: []
     correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
     message: Clean the infected computer ASAP, it may infect another computer.
     inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Will do.
     inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
   actors:
   - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
   - {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}

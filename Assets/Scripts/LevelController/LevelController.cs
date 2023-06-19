@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -32,9 +33,9 @@ public class LevelController : MonoBehaviour
     [Header("Dialogue Trigger")]
     [SerializeField] private Dialogue infectionDialogue;
     
-    [Header("Weblists")]
-    [SerializeField] private List<Website> webLists;
-    
+    [Header("Completed Quiz Dialogue")]
+    [SerializeField] private List<Dialogue> completedQuizDialogues = new List<Dialogue>();
+
     private void Awake()
     {
         if(Instance == null)
@@ -126,6 +127,16 @@ public class LevelController : MonoBehaviour
     {
         isMainStarted = true;
     }
+    
+    public void SetCompletedQuiz(Dialogue dialogue)
+    {
+        completedQuizDialogues.Add(dialogue);
+    }
+    
+    public bool IsCompletedQuiz(Dialogue dialogue)
+    {
+        return completedQuizDialogues.Contains(dialogue);
+    }
 
     public void StartInfectComputer(int amount)
     {
@@ -133,7 +144,6 @@ public class LevelController : MonoBehaviour
         {
             for (int i = 0; i < amount; i++)
             {
-                Debug.Log($"infecting {i} times");
                 computers[i].SetInfectComputer();
             }
         }

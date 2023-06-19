@@ -9,6 +9,7 @@ public class Dialogue : ScriptableObject
     public QuestState questState;
     public Message[] messages;
     public Actor[] actors;
+    public bool isContainQuiz;
 }
 
 
@@ -20,6 +21,7 @@ public class Message
     public InventoryGiveType inventoryGiveType = InventoryGiveType.NONE;
     public string[] choices; // Add choices array
     public int correctChoiceIndex;
+    public Dialogue ifIncorrectDialogue;
 }
 
 public enum InventoryGiveType

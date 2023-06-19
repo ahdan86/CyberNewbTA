@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf2eef786ba575448fb2592e80bafd8, type: 3}
+  m_Name: Dialogue_Quest3_Quiz_Boss
+  m_EditorClassIdentifier: 
+  questState: 9
+  messages:
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: Hey, do you need my help?
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: e6f4921c532ad7a4d8a33cc1e2f102a1, type: 2}
+    message: Well, what do you think?
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+    message: I'll take that as a yes :), so what's your question?
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: e6f4921c532ad7a4d8a33cc1e2f102a1, type: 2}
+    message: What is the act of tricking someone into revealing sensitive information
+      called?
+    inventoryGiveType: 0
+    choices:
+    - Hacking
+    - Phishing
+    - Spoofing
+    - Ransomware
+    correctChoiceIndex: 1
+    ifIncorrectDialogue: {fileID: 11400000, guid: 57ad9e4b83ec0714983d900e1d34d7e4,
+      type: 2}
+  - actor: {fileID: 11400000, guid: e6f4921c532ad7a4d8a33cc1e2f102a1, type: 2}
+    message: What is a type of malicious software that encrypts your files and demands
+      a ransom?
+    inventoryGiveType: 0
+    choices:
+    - Malware
+    - Virus
+    - Spyware
+    - Ransomware
+    correctChoiceIndex: 3
+    ifIncorrectDialogue: {fileID: 11400000, guid: 57ad9e4b83ec0714983d900e1d34d7e4,
+      type: 2}
+  - actor: {fileID: 11400000, guid: e6f4921c532ad7a4d8a33cc1e2f102a1, type: 2}
+    message: OK, thanks for the answer.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  actors:
+  - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
+  - {fileID: 11400000, guid: e6f4921c532ad7a4d8a33cc1e2f102a1, type: 2}
+  isContainQuiz: 1

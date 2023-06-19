@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     private Message[] _currentMessages;
     private Actor[] _currentActors;
     private int _activeMessage;
+    private Dialogue _dialogue;
     public static bool isActive;
 
     [SerializeField] private Text continueText;
@@ -24,8 +25,10 @@ public class DialogueManager : MonoBehaviour
 
     public void OpenDialogue(Dialogue dialogueObject)
     {
-        _currentMessages = dialogueObject.messages;
-        _currentActors = dialogueObject.actors;
+        _dialogue = dialogueObject;
+        _currentMessages = _dialogue.messages;
+        _currentActors = _dialogue.actors;
+
         _activeMessage = 0;
         isActive = true;
 
@@ -38,9 +41,8 @@ public class DialogueManager : MonoBehaviour
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
-    public void DisplayMessage()
+    private void DisplayMessage()
     {
-
         Message message = _currentMessages[_activeMessage];
         Actor actor = GetActor(message.actor.actorId);
 
@@ -49,6 +51,10 @@ public class DialogueManager : MonoBehaviour
         messageText.text = message.message;
 
         AnimateTextColor();
+        for (int i = 0; i < buttonArray.Length; i++)
+        {
+            buttonArray[i].gameObject.SetActive(false);
+        }
 
         if (message.inventoryGiveType == InventoryGiveType.FDVirus)
         {
@@ -67,33 +73,41 @@ public class DialogueManager : MonoBehaviour
             buttonArray[i].onClick.AddListener(() => EvaluateChoice(choiceIndex));
         }
     }
+
+    private void ChangeDialogue(Dialogue dialogue)
+    {
+        _dialogue = dialogue;
+        _currentMessages = _dialogue.messages;
+        _currentActors = _dialogue.actors;
+        _activeMessage = 0;
+        DisplayMessage();
+    }
     
-    public void EvaluateChoice(int choiceIndex)
+    private void EvaluateChoice(int choiceIndex)
     {
         var message = _currentMessages[_activeMessage];
         bool isCorrect = (choiceIndex == message.correctChoiceIndex);
         
-        if (isCorrect)
+        for (int i = 0; i < message.choices.Length; i++)
         {
-            Debug.Log("Correct choice!");
+            buttonArray[i].onClick.RemoveAllListeners();
+        }
+        
+        if(!isCorrect)
+        {
+            ChangeDialogue(message.ifIncorrectDialogue);
         }
         else
         {
-            Debug.Log("Wrong choice!");
+            NextMessage(); 
         }
-
-        NextMessage();
     }
     
-    public void NextMessage()
+    private void NextMessage()
     {
         _activeMessage++;
         if (_activeMessage < _currentMessages.Length)
         {
-            for (int i = 0; i < buttonArray.Length; i++)
-            {
-                 buttonArray[i].gameObject.SetActive(false);
-            }
             DisplayMessage();
         }
         else
@@ -104,6 +118,11 @@ public class DialogueManager : MonoBehaviour
             if (_currentActors.Length > 1)
             {
                 QuestEvent.current.Interact(_currentActors[1].actorName);
+                if (_dialogue.isContainQuiz)
+                {
+                    QuestEvent.current.Solve((int)ObjectiveType.SOLVE_QUIZ);
+                    LevelController.Instance.SetCompletedQuiz(_dialogue);
+                }
             }
 
             // turn on movement, animator and 'E' display

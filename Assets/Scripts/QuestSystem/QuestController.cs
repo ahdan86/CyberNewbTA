@@ -27,11 +27,9 @@ public class QuestController : MonoBehaviour
                 var nextQuest = GetNextQuest();
                 if (nextQuest == null)
                 {
-                    if (activeQuest.GetQuestState() == QuestState.QUEST1_PHASE4_OPEN_DOCUMENT)
-                    {
-                        questManager.CompleteQuest(activeQuest);
-                    }
-                    else if (activeQuest.GetQuestState() == QuestState.QUEST2_PHASE3_COMPLETE_WEBCHECKS)
+                    if (activeQuest.GetQuestState() == QuestState.QUEST1_PHASE4_OPEN_DOCUMENT
+                        || activeQuest.GetQuestState() ==  QuestState.QUEST2_PHASE3_COMPLETE_WEBCHECKS 
+                        || activeQuest.GetQuestState() == QuestState.QUEST3_PHASE2_COMPLETE_TASKS)
                     {
                         questManager.CompleteQuest(activeQuest);
                     }
@@ -60,7 +58,7 @@ public class QuestController : MonoBehaviour
                     quest => quest.GetQuestState() == QuestState.QUEST_CLEAN_INFECTED
                 ));
             ObjectiveUI.Instance.UpdateObjectiveList();
-            NotificationUI.Instance.AnimatePanel("Objective Updated");
+            NotificationUI.Instance.AnimatePanel("Virus have appeared!");
         }
         else
         {
@@ -121,6 +119,19 @@ public class QuestController : MonoBehaviour
             return questsList
                 .FirstOrDefault(
                     quest => quest.GetQuestState() == QuestState.QUEST2_PHASE3_COMPLETE_WEBCHECKS
+                );
+        }
+
+        if (questManager.IsQuestActive((QuestState.QUEST3_PHASE1_TALK_TO_BRYAN)))
+        {
+            if (!_levelControllerMethodsCalled)
+            {
+                LevelController.Instance.StartGame();
+                LevelController.Instance.StartInfectComputer(4);
+            }
+            return questsList
+                .FirstOrDefault(
+                    quest => quest.GetQuestState() == QuestState.QUEST3_PHASE2_COMPLETE_TASKS
                 );
         }
         return null;

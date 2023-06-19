@@ -10,7 +10,7 @@ public class NPC : MonoBehaviour, IInteractable
     public string InteractionName => _name;
 
     public DialogueTrigger dialogueTrigger;
-    
+
     public bool Interact(Interactor interactor)
     {
         Debug.Log("Interacting with NPC");

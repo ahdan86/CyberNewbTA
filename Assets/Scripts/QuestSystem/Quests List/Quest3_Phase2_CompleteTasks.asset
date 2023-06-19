@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bfa9bec1d02d684396001faca366280, type: 3}
-  m_Name: Quest2_Phase3_CompleteWebchecks
+  m_Name: Quest3_Phase2_CompleteTasks
   m_EditorClassIdentifier: 
-  state: 7
+  state: 9
   objectives:
-  - type: 5
-    description: Open WebChecker App
-    mustCompleted: 1
-    interactQuest: 
-    openFileQuest: WebChecker
-  - type: 2
-    description: Check the phising website, complete the webchecker.
-    mustCompleted: 7
+  - type: 3
+    description: 'Solve others question about cybersecurity. '
+    mustCompleted: 4
     interactQuest: 
     openFileQuest: 
-  questDescEng: Complete Webchecker
+  - type: 2
+    description: Check the phising website, complete the webchecker.
+    mustCompleted: 10
+    interactQuest: 
+    openFileQuest: 
+  questDescEng: Complete All Tasks.

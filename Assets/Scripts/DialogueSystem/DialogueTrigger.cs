@@ -25,7 +25,12 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (dialogueObjectsByQuestState.TryGetValue(quest.Key, out var value))
             {
-                FindObjectOfType<DialogueManager>().OpenDialogue(value);
+                if (value.isContainQuiz && LevelController.Instance.IsCompletedQuiz(value))
+                {
+                    FindObjectOfType<DialogueManager>().OpenDialogue(defaultDialogue);
+                }
+                else
+                    FindObjectOfType<DialogueManager>().OpenDialogue(value);
                 return;
             }
         }

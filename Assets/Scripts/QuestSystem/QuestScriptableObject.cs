@@ -18,9 +18,10 @@ public enum ObjectiveType : int
     NONE = 0,
     INTERACT = 1,
     SOLVE_PHISHING = 2,
-    CLEAN_INFECTED = 3,
-    OPEN_FILE = 4,
-    ACCEPT_FILE = 5,
+    SOLVE_QUIZ = 3,
+    CLEAN_INFECTED = 4,
+    OPEN_FILE = 5,
+    ACCEPT_FILE = 6,
 }
 
 [Serializable]
