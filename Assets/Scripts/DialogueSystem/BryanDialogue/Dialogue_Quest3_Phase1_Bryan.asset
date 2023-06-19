@@ -51,7 +51,7 @@ MonoBehaviour:
     correctChoiceIndex: 0
     ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
-    message: The others likely want to get your help.
+    message: The others at meeting table likely want to get your help.
     inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
@@ -96,3 +96,4 @@ MonoBehaviour:
   actors:
   - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
   - {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+  isContainQuiz: 0
