@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,9 +13,29 @@ public class FinishGameScreen : MonoBehaviour, GameScreen
         gameObject.SetActive(true);
     }
 
-    public void SetMoneyText(float money)
+    public void SetMoney(float money, string levelName)
     {
         moneyText.text = "Money Left: $ " + money.ToString("F1");
         
+        string jsonString = PlayerPrefs.GetString("highscoreTable_" + levelName);
+        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+
+        if (highscores != null)
+        {
+            float highestScore = highscores.highscoreEntryList.Max(t => t.score);
+            if (money > highestScore)
+            {
+                highscoreText.text = "NEW HIGHSCORE!";
+            }
+            else
+            {
+                highscoreText.text = "Highscore: $ " + highestScore.ToString("F1");
+            }
+        }
+        else
+        {
+            highscoreText.text = "NEW HIGHSCORE!";
+        }
+        HighscoreTable.AddHighscoreEntry(money, StaticData.playerName, levelName);
     }
 }

@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         var levelName = SceneManager.GetActiveScene().name;
         Time.timeScale = 0;
         finishGameScreen.SetupScreen();
-        finishGameScreen.SetMoneyText(money);
+        finishGameScreen.SetMoney(money, levelName);
     }
     
     public void NextLevel()
