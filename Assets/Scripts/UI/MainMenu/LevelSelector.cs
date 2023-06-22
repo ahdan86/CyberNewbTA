@@ -24,6 +24,7 @@ public class LevelSelector : MonoBehaviour
             var index = i;
             levelButtons[i].onClick.AddListener(() => EnterLevel(index + 1));
         }
+        levelSelectorGroup.SetActive(false);
     }
     
     public void SetPlayerName()

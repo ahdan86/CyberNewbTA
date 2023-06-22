@@ -15,7 +15,7 @@ MonoBehaviour:
   state: 9
   objectives:
   - type: 3
-    description: 'Solve others question about cybersecurity. '
+    description: Solve people's questions about cybersecurity.
     mustCompleted: 4
     interactQuest: 
     openFileQuest: 

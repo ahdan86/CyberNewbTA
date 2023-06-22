@@ -29,6 +29,10 @@ public class DesktopScript : MonoBehaviour
     [SerializeField] private Calculator calculator;
     [SerializeField] private int targetNumber;
     [SerializeField] private Text targetText;
+    [SerializeField] private int minNumber;
+    [SerializeField] private int maxNumber;
+    private Coroutine _antiVirusCoroutine;
+    private Coroutine _virusCoroutine;
 
     [Header("Player Properties")]
     [SerializeField] private Inventory inventory;
@@ -88,6 +92,20 @@ public class DesktopScript : MonoBehaviour
     
     IEnumerator CloseAllWindows()
     {
+        if (_virusCoroutine != null)
+        {
+            StopCoroutine(_virusCoroutine);
+            infectVirusProgressBar.SetProgressValue(0f);
+            infectVirusProgressBar.SetProgressActive(false);
+        }
+
+        if (_antiVirusCoroutine != null)
+        {
+            StopCoroutine(_antiVirusCoroutine);
+            cleanVirusProgressBar.SetProgressValue(0f);
+            cleanVirusProgressBar.SetProgressActive(false);
+        }
+
         foreach(var window in windowObjects)
         {
             Debug.Log("Closing window");
@@ -115,7 +133,7 @@ public class DesktopScript : MonoBehaviour
     {
         if (isInfected || inventory.HasFDContamined)
         {
-            StartCoroutine(CleanVirusProgressCoroutine());           
+            _antiVirusCoroutine = StartCoroutine(CleanVirusProgressCoroutine());           
         }
         else
         {
@@ -185,14 +203,14 @@ public class DesktopScript : MonoBehaviour
         {
             antiVirusWindowTransform.Find("Content").Find("DescText").GetComponent<Text>().text =
                 "Your PC has been infected with a virus. Solve the puzzle to clean it up.";
-            targetNumber = Random.Range(0, 31);
+            targetNumber = Random.Range(minNumber, maxNumber);
             targetText.text = targetNumber.ToString();
         }
         else if (inventory.HasFDContamined)
         {
             antiVirusWindowTransform.Find("Content").Find("DescText").GetComponent<Text>().text =
                 "You have a flash drive that is infected with a virus. Clean the virus to restore the files.";
-            targetNumber = Random.Range(0, 31);
+            targetNumber = Random.Range(minNumber, maxNumber);
             targetText.text = targetNumber.ToString();
         }
         else
@@ -209,7 +227,7 @@ public class DesktopScript : MonoBehaviour
     {
         if (!isInfected)
         {
-            StartCoroutine(VirusProgressCoroutine());
+            _virusCoroutine = StartCoroutine(VirusProgressCoroutine());
         }
         else
         {

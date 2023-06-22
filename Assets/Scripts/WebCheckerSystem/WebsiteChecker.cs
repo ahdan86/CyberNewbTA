@@ -93,6 +93,7 @@ public class WebsiteChecker : MonoBehaviour
         webImage.sprite = _currentWebsite.webSprite;
         webBrand.text = _currentWebsite.brand;
         webUrl.text = _currentWebsite.url;
+        toggleOn.isOn = false;
         _counterCoroutine = StartCoroutine(CountDown());
     }
 

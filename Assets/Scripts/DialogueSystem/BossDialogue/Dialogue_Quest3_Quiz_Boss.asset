@@ -33,6 +33,12 @@ MonoBehaviour:
     correctChoiceIndex: 0
     ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: e6f4921c532ad7a4d8a33cc1e2f102a1, type: 2}
+    message: So here is the question...
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: e6f4921c532ad7a4d8a33cc1e2f102a1, type: 2}
     message: What is the act of tricking someone into revealing sensitive information
       called?
     inventoryGiveType: 0
