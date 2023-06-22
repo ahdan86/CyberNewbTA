@@ -15,7 +15,7 @@ MonoBehaviour:
   state: 5
   objectives:
   - type: 1
-    description: Talk to Edna again..
+    description: I need to talk to Edna again.
     mustCompleted: 1
     interactQuest: Edna
     openFileQuest: 

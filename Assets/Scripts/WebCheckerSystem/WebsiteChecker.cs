@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using float_oat.Desktop90;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -37,6 +38,7 @@ public class WebsiteChecker : MonoBehaviour
     [SerializeField] private List<Website> allWebsitesList;
     [SerializeField] private int phishWebCount;
     [SerializeField] private int nonPhishWebCount;
+    [SerializeField] private int timeLimit;
     
     private LinkedList<Website> _websitesLinkedList;
     private LinkedListNode<Website> _currentWebsiteNode;
@@ -96,8 +98,8 @@ public class WebsiteChecker : MonoBehaviour
 
     IEnumerator CountDown()
     {
-        counterText.text = "5";
-        int counter = 5;
+        int counter = timeLimit;
+        counterText.text = counter.ToString();
         while (counter >= 0)
         {
             yield return new WaitForSeconds(1f);

@@ -19,31 +19,38 @@ MonoBehaviour:
     inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Yeah... a lot of traffic in this town @.@
     inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
     message: Tell me about it! Anyway, Mr. Bryan is looking for you.
     inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
-    message: He's kinda talk about the yesterday's accident.
+    message: He wanna talk about the yesterday's incident.
     inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
     message: Ok, Thank you Edna!
     inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
     message: Anytime.
     inventoryGiveType: 0
     choices: []
     correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
   actors:
   - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
   - {fileID: 11400000, guid: bbdb3be58808dca4ead7f76bc5c7ddec, type: 2}
+  isContainQuiz: 0

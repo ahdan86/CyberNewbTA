@@ -62,6 +62,12 @@ MonoBehaviour:
     correctChoiceIndex: 2
     ifIncorrectDialogue: {fileID: 11400000, guid: 5d4b3ae405e2ddf45a1548bdf3c4de8f,
       type: 2}
+  - actor: {fileID: 11400000, guid: e10cd15392b36a642b964332c61bf122, type: 2}
+    message: Wow, you're smart Gus.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
   actors:
   - {fileID: 11400000, guid: eb22e45fe0fdaec48902d0c7f045f7be, type: 2}
   - {fileID: 11400000, guid: e10cd15392b36a642b964332c61bf122, type: 2}

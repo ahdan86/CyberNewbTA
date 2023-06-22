@@ -32,12 +32,24 @@ public class GameManager : MonoBehaviour
     
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if(SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            SceneManager.LoadScene(0);
+            return;
+        }
+        
+        var nextLevelLoad= SceneManager.GetActiveScene().buildIndex + 1;
+        SceneManager.LoadScene(nextLevelLoad);
+
+        if (nextLevelLoad > PlayerPrefs.GetInt("level"))
+        {
+            PlayerPrefs.SetInt("level", nextLevelLoad);
+        }
     }
 
     public void QuitLevel()
     {
-        //TODO: add quit level
+        SceneManager.LoadScene(0);
     }
 
     public void Paused()

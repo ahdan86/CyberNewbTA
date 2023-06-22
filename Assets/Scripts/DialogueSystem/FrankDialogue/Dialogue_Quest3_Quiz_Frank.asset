@@ -52,11 +52,7 @@ MonoBehaviour:
   - actor: {fileID: 11400000, guid: 25d7764c98dc7fd4c803bf8f9e5eaeb0, type: 2}
     message: Wew, You a livesaver Gus!
     inventoryGiveType: 0
-    choices:
-    - Phishing
-    - Ransomware
-    - DDoS
-    - Spoofing
+    choices: []
     correctChoiceIndex: 0
     ifIncorrectDialogue: {fileID: 0}
   actors:
