@@ -25,7 +25,6 @@ public class HighscoreTable : MonoBehaviour
     
     private void CleanHighscoreTable()
     {
-        //destroy all children except the template
         foreach (Transform child in _entryContainer)
         {
             if (child != _entryTemplate)
@@ -56,10 +55,11 @@ public class HighscoreTable : MonoBehaviour
         Debug.Log(jsonString);
         
         highscores.highscoreEntryList.Sort((x, y) => y.score.CompareTo(x.score));
-    
+        
+        var listTransform = new List<Transform>();
         foreach (var highscoreEntry in highscores.highscoreEntryList)
         {
-            CreateHighscoreEntryTransform(highscoreEntry, _entryContainer, new List<Transform>());
+            CreateHighscoreEntryTransform(highscoreEntry, _entryContainer, listTransform);
         }
     }
 
