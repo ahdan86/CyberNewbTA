@@ -29,6 +29,7 @@ public class LevelController : MonoBehaviour
     [Header("Level Management")]
     [SerializeField] private bool isInfecting;
     [SerializeField] private bool isMainStarted;
+    [SerializeField] private bool isFinished;
 
     [Header("Dialogue Trigger")]
     [SerializeField] private Dialogue infectionDialogue;
@@ -98,7 +99,11 @@ public class LevelController : MonoBehaviour
         }
         if (QuestManager.Instance.GetActiveQuests().Count <= 0)
         {
-            GameManager.Instance.Success(money);
+            if (!isFinished)
+            {
+                GameManager.Instance.Success(money);
+                isFinished = true;
+            }
         }
     }
 

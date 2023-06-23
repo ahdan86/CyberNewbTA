@@ -9,6 +9,7 @@ public class LevelSelector : MonoBehaviour
 {
     [SerializeField] private Button[] levelButtons;
     [SerializeField] private TMP_InputField playerNameInputField;
+    [SerializeField] private Text[] highScoreTexts;
     [SerializeField] private GameObject levelSelectorGroup;
     [SerializeField] private string playerName;
     void Start()

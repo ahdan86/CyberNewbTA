@@ -15,26 +15,26 @@ public class FinishGameScreen : MonoBehaviour, GameScreen
 
     public void SetMoney(float money, string levelName)
     {
-        moneyText.text = "Money Left: $ " + money.ToString("F1");
-        
+        moneyText.text = "Money Left: $" + money.ToString("F1");
+
         string jsonString = PlayerPrefs.GetString("highscoreTable_" + levelName);
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
 
-        if (highscores != null)
+        if (highscores != null && highscores.highscoreEntryList.Count > 0)
         {
-            float highestScore = highscores.highscoreEntryList.Max(t => t.score);
-            if (money > highestScore)
+            float highestMoney = highscores.highscoreEntryList.Max(t => t.score);
+            if (money > highestMoney)
             {
-                highscoreText.text = "NEW HIGHSCORE!";
+                highscoreText.text = "NEW HIGHSCORE!: $" + money.ToString("F1");
             }
             else
             {
-                highscoreText.text = "Highscore: $ " + highestScore.ToString("F1");
+                highscoreText.text = "Highscore: $" + highestMoney.ToString("F1");
             }
         }
         else
         {
-            highscoreText.text = "NEW HIGHSCORE!";
+            highscoreText.text = "NEW HIGHSCORE!: $" + money.ToString("F1");
         }
         HighscoreTable.AddHighscoreEntry(money, StaticData.playerName, levelName);
     }

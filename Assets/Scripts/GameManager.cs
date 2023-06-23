@@ -33,9 +33,10 @@ public class GameManager : MonoBehaviour
     
     public void NextLevel()
     {
+        Time.timeScale = 1;
         if(SceneManager.GetActiveScene().buildIndex == 3)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("MainMenu");
             return;
         }
         
@@ -50,7 +51,8 @@ public class GameManager : MonoBehaviour
 
     public void QuitLevel()
     {
-        SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void Paused()

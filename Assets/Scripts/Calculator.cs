@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Calculator : MonoBehaviour
 {
     [SerializeField] private Text totalText;
-    public int Total = 0;
+    [FormerlySerializedAs("Total")] public int total = 0;
     public BitToggle[] bitToggles;
     private void Start()
     {
@@ -18,18 +19,18 @@ public class Calculator : MonoBehaviour
 
     private void Update()
     {
-        totalText.text = Total.ToString();
+        totalText.text = total.ToString();
     }
 
     private void Toggle_OnToggleChanged(int number, bool enabled)
     {
         if (enabled)
         {
-            Total += number;
+            total += number;
         } 
         else
         {
-            Total -= number;
+            total -= number;
         }
     }
 }

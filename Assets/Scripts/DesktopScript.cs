@@ -152,7 +152,7 @@ public class DesktopScript : MonoBehaviour
             yield return null;
         }
 
-        if (calculator.Total == targetNumber)
+        if (calculator.total == targetNumber)
         {
             if (isInfected)
             {
@@ -192,7 +192,7 @@ public class DesktopScript : MonoBehaviour
     {
         antiVirusWindowTransform.Find("Content").Find("Puzzle").Find("Submit Button")
             .GetComponent<Button>().interactable = true;
-        calculator.Total = 0;
+        calculator.total = 0;
         
         foreach(BitToggle toggle in calculator.bitToggles)
         {

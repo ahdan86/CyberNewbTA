@@ -19,21 +19,44 @@ public class HighscoreTable : MonoBehaviour
     public void OnClickLevelButton(string level)
     {
         levelName = level;
+        CleanHighscoreTable();
         OnLoadHighscore();
+    }
+    
+    private void CleanHighscoreTable()
+    {
+        //destroy all children except the template
+        foreach (Transform child in _entryContainer)
+        {
+            if (child != _entryTemplate)
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
     
     private void OnLoadHighscore()
     {
         string jsonString = PlayerPrefs.GetString("highscoreTable_" + levelName);
-        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
-        
-        if(highscores == null)
+    
+        if (string.IsNullOrEmpty(jsonString))
         {
             Debug.Log("No Highscore");
             return;
         }
+    
+        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+    
+        if (highscores == null)
+        {
+            Debug.Log("Failed to parse highscores from JSON");
+            return;
+        }
+        
+        Debug.Log(jsonString);
         
         highscores.highscoreEntryList.Sort((x, y) => y.score.CompareTo(x.score));
+    
         foreach (var highscoreEntry in highscores.highscoreEntryList)
         {
             CreateHighscoreEntryTransform(highscoreEntry, _entryContainer, new List<Transform>());
@@ -64,24 +87,33 @@ public class HighscoreTable : MonoBehaviour
         entryTransform.Find("NameValue").GetComponent<TMPro.TextMeshProUGUI>().text = playerName;
         
         float score = highscoreEntry.score;
-        entryTransform.Find("ScoreValue").GetComponent<TMPro.TextMeshProUGUI>().text = score.ToString();
+        entryTransform.Find("ScoreValue").GetComponent<TMPro.TextMeshProUGUI>().text = "$" + score.ToString("F1");
         
-        entryTransform.Find("background").gameObject.SetActive(rank % 2 == 1);
+        entryTransform.Find("Background").gameObject.SetActive(rank % 2 == 1);
         transformList.Add(entryRectTransform);
     }
 
     public static void AddHighscoreEntry(float score, string name, string levelName)
     {
-        HighscoreEntry highscoreEntry = new HighscoreEntry{score = score, name = name};
-        
+        HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name = name };
+
         string jsonString = PlayerPrefs.GetString("highscoreTable_" + levelName);
-        Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
-        
-        highscores.highscoreEntryList.Add(highscoreEntry);
-        
-        string json = JsonUtility.ToJson(highscores);
-        PlayerPrefs.SetString("highscoreTable_" + levelName, json);
-        PlayerPrefs.Save();
+    
+        if (string.IsNullOrEmpty(jsonString))
+        {
+            Highscores highscores = new Highscores { highscoreEntryList = new List<HighscoreEntry>() };
+            string json = JsonUtility.ToJson(highscores);
+            PlayerPrefs.SetString("highscoreTable_" + levelName, json);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+            highscores.highscoreEntryList.Add(highscoreEntry);
+            string json = JsonUtility.ToJson(highscores);
+            PlayerPrefs.SetString("highscoreTable_" + levelName, json);
+            PlayerPrefs.Save();
+        }
     }
 }
 

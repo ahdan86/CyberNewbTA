@@ -64,7 +64,11 @@ public class DialogueManager : MonoBehaviour
         {
             inventory.SetHasAntivirus(true);
         }
-        
+
+        if (message.choices == null)
+        {
+            message.choices = new string [0];
+        }
         for (int i = 0; i < message.choices.Length; i++)
         {
             int choiceIndex = i;
@@ -87,12 +91,15 @@ public class DialogueManager : MonoBehaviour
     {
         var message = _currentMessages[_activeMessage];
         bool isCorrect = (choiceIndex == message.correctChoiceIndex);
-        
-        for (int i = 0; i < message.choices.Length; i++)
+
+        if (message.choices != null)
         {
-            buttonArray[i].onClick.RemoveAllListeners();
+            for (int i = 0; i < message.choices.Length; i++)
+            {
+                buttonArray[i].onClick.RemoveAllListeners();
+            }
         }
-        
+
         if(!isCorrect)
         {
             ChangeDialogue(message.ifIncorrectDialogue);
@@ -156,6 +163,10 @@ public class DialogueManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isActive)
         {
+            if(_currentMessages[_activeMessage].choices == null)
+            {
+                _currentMessages[_activeMessage].choices = new string[0];
+            }
             if (_currentMessages[_activeMessage].choices.Length < 1)
             {
                 NextMessage();
