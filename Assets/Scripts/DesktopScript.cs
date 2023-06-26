@@ -1,5 +1,6 @@
 using float_oat.Desktop90;
 using System.Collections;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,6 +37,8 @@ public class DesktopScript : MonoBehaviour
 
     [Header("Player Properties")]
     [SerializeField] private Inventory inventory;
+    [SerializeField] private ThirdPersonController characterController;
+    [SerializeField] private Animator playerAnimator;
 
     [SerializeField] private WindowController[] windowObjects;
 
@@ -55,6 +58,7 @@ public class DesktopScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 SetupDesktopUI(false);
+                SetPlayerMovement(true);
             }
 
             if (isInfected)
@@ -65,20 +69,27 @@ public class DesktopScript : MonoBehaviour
         }
     }
 
+    private void SetPlayerMovement(bool status)
+    {
+        characterController.setCanMove(status);
+        playerAnimator.enabled = status;
+    }
+
     private void SetupDesktopUI(bool active)
     {
         if (active)
         {
             gameObject.SetActive(true);
-            if (inventory.HasFDContamined)
+            SetPlayerMovement(false);
+            if (inventory.hasFDContamined)
             {
                 virusIconsTransform.gameObject.SetActive(true);
             }
-            if (inventory.HasFDAntivirus)
+            if (inventory.hasFDAntivirus)
             {
                 antiVirusIconsTransform.gameObject.SetActive(true);
             }
-            if(inventory.HasFDContaminedCleaned)
+            if(inventory.hasFDContaminedCleaned)
             {
                 documentIconsTransform.gameObject.SetActive(true);
             }
@@ -131,7 +142,7 @@ public class DesktopScript : MonoBehaviour
 
     public void SolveAntiVirusPuzzle()
     {
-        if (isInfected || inventory.HasFDContamined)
+        if (isInfected || inventory.hasFDContamined)
         {
             _antiVirusCoroutine = StartCoroutine(CleanVirusProgressCoroutine());           
         }
@@ -161,10 +172,10 @@ public class DesktopScript : MonoBehaviour
                 contentTransform.GetComponent<Image>().color = new Color32(0x91, 0xAB, 0x7E, 0xFF);
             }
                 
-            else if (inventory.HasFDContamined)
+            else if (inventory.hasFDContamined)
             {
-                inventory.HasFDContamined = false;
-                inventory.HasFDContaminedCleaned = true;
+                inventory.hasFDContamined = false;
+                inventory.hasFDContaminedCleaned = true;
                 NotificationUI.Instance.AnimatePanel("FlashDrive Cleaned");
                 
                 virusIconsTransform.gameObject.SetActive(false);
@@ -206,7 +217,7 @@ public class DesktopScript : MonoBehaviour
             targetNumber = Random.Range(minNumber, maxNumber);
             targetText.text = targetNumber.ToString();
         }
-        else if (inventory.HasFDContamined)
+        else if (inventory.hasFDContamined)
         {
             antiVirusWindowTransform.Find("Content").Find("DescText").GetComponent<Text>().text =
                 "You have a flash drive that is infected with a virus. Clean the virus to restore the files.";

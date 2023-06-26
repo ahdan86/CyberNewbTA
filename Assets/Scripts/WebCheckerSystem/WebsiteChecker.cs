@@ -55,9 +55,9 @@ public class WebsiteChecker : MonoBehaviour
         
         _websitesLinkedList = new LinkedList<Website>();
         for(int i = 0; i < phishWebCount; i++)
-            _websitesLinkedList.AddLast(phishingWebsites[Random.Range(0, phishingWebsites.Length)]);
+            _websitesLinkedList.AddLast(phishingWebsites[i]);
         for(int i = 0; i < nonPhishWebCount; i++)
-            _websitesLinkedList.AddLast(nonPhishingWebsites[Random.Range(0, nonPhishingWebsites.Length)]);
+            _websitesLinkedList.AddLast(nonPhishingWebsites[i]);
         
         if (_websitesLinkedList.Count > 0)
         {
@@ -118,18 +118,21 @@ public class WebsiteChecker : MonoBehaviour
         StopCoroutine(_counterCoroutine);
         var toggleStatus = toggleOn.isOn;
         bool isAnswerCorrect = toggleStatus == _currentWebsite.isPhising;
-        
-        if(!isAnswerCorrect)
+
+        if (!isAnswerCorrect)
+        {
             LevelController.Instance.ReduceMoney(50f);
+            StartCoroutine(PopUpAnswer(wrongWindow));
+            ChangeWebsite();
+        }
         else
         {
             QuestEvent.current.Solve((int)ObjectiveType.SOLVE_PHISHING);
             var temp = _currentWebsiteNode;
+            StartCoroutine(PopUpAnswer(correctWindow));
+            ChangeWebsite();
             _websitesLinkedList.Remove(temp);
         }
-        StartCoroutine(PopUpAnswer(isAnswerCorrect ? correctWindow : wrongWindow));
-        
-        ChangeWebsite();
     }
     
     private void ChangeWebsite()

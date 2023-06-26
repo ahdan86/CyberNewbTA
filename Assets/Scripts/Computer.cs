@@ -29,7 +29,7 @@ public class Computer : MonoBehaviour, IInteractable
         if (inventory == null) 
             return false;
         
-        if (inventory.HasFDContamined || inventory.HasFDAntivirus)
+        if (inventory.hasFDContamined || inventory.hasFDAntivirus)
         {
             DesktopEvent.current.OpenDesktopUI(computerId, virusInfected);
            

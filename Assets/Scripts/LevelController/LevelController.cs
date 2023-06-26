@@ -45,6 +45,7 @@ public class LevelController : MonoBehaviour
     private void Start()
     {
         moneyText.text = "$ " + money.ToString("F1");
+        DesktopEvent.current.onCleanVirus.AddListener(OnCleanVirus);
     }
 
     private void Update()
@@ -57,7 +58,7 @@ public class LevelController : MonoBehaviour
             //Checking komputer apakah ada yang terinfeksi
             if (infectedComputer > 0)
             {
-                money -= moneyReducer * Time.deltaTime;
+                money -= (moneyReducer * 1.15f) * Time.deltaTime;
                 moneyText.text = "$ " + money.ToString("F1");
                 
                 if (!isInfecting && infectedComputer < computers.Count)
@@ -77,7 +78,7 @@ public class LevelController : MonoBehaviour
             }
             else
             {
-                money -= moneyReducer * 1.2f * Time.deltaTime;
+                money -= moneyReducer * Time.deltaTime;
                 moneyText.text = "$ " + money.ToString("F1");
                 
                 if (InfectedPanelUI.Instance.isOpen)
@@ -88,6 +89,7 @@ public class LevelController : MonoBehaviour
                     
                     StopCoroutine(_virusCoroutine);
                     virusProgressBar.SetProgressActive(false);
+                    isInfecting = false;
                 }
             }
             
@@ -122,7 +124,12 @@ public class LevelController : MonoBehaviour
         virusProgressBar.SetProgressValue(0);
         isInfecting = false;
     }
-    
+
+    private void OnCleanVirus(int _)
+    {
+        virusProgressBar.SetProgressValue(0f);
+    }
+
     public void ReduceMoney(float amount)
     {
         money -= amount;

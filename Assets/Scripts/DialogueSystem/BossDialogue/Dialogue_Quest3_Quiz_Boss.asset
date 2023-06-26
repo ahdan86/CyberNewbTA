@@ -40,7 +40,7 @@ MonoBehaviour:
     ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: e6f4921c532ad7a4d8a33cc1e2f102a1, type: 2}
     message: What is the act of tricking someone into revealing sensitive information
-      called?
+      by imitating a trustworthy entity or website called?
     inventoryGiveType: 0
     choices:
     - Hacking

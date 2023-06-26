@@ -2,28 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Inventory : MonoBehaviour
 {
-    public bool HasFDContamined;
-    public bool HasFDAntivirus;
-    public bool HasFDContaminedCleaned;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            HasFDContamined = !HasFDContamined;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            HasFDAntivirus = !HasFDAntivirus;
-        }
-    }
+    [FormerlySerializedAs("HasFDContamined")] public bool hasFDContamined;
+    [FormerlySerializedAs("HasFDAntivirus")] public bool hasFDAntivirus;
+    [FormerlySerializedAs("HasFDContaminedCleaned")] public bool hasFDContaminedCleaned;
 
     public void SetHasContamined(bool status)
     {
-        HasFDContamined = status;
+        hasFDContamined = status;
         if(status)
             NotificationUI.Instance.AnimatePanel("Flashdrive added to inventory");
         else 
@@ -32,7 +21,7 @@ public class Inventory : MonoBehaviour
     
     public void SetHasAntivirus(bool status)
     {
-        HasFDAntivirus = status;
+        hasFDAntivirus = status;
         if(status)
             NotificationUI.Instance.AnimatePanel("Flashdrive added to inventory");
         else 

@@ -102,6 +102,11 @@ public class DialogueManager : MonoBehaviour
 
         if(!isCorrect)
         {
+            if (_dialogue.isContainQuiz)
+            {
+                LevelController.Instance.ReduceMoney(50f);
+                NotificationUI.Instance.AnimatePanel("You lost 50$!");   
+            }
             ChangeDialogue(message.ifIncorrectDialogue);
         }
         else

@@ -70,6 +70,13 @@ MonoBehaviour:
     correctChoiceIndex: 0
     ifIncorrectDialogue: {fileID: 0}
   - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
+    message: If you dont know the answer for the question, you can check in document
+      inside your computer.
+    inventoryGiveType: 0
+    choices: []
+    correctChoiceIndex: 0
+    ifIncorrectDialogue: {fileID: 0}
+  - actor: {fileID: 11400000, guid: a7c379abe7f99c048901b44e55c2d123, type: 2}
     message: Simple.
     inventoryGiveType: 0
     choices: []

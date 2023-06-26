@@ -29,6 +29,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         finishGameScreen.SetupScreen();
         finishGameScreen.SetMoney(money, levelName);
+        
+        var nextLevelLoad= SceneManager.GetActiveScene().buildIndex + 1;
+        if (nextLevelLoad > PlayerPrefs.GetInt("level"))
+        {
+            PlayerPrefs.SetInt("level", nextLevelLoad);
+        }
     }
     
     public void NextLevel()
@@ -42,11 +48,6 @@ public class GameManager : MonoBehaviour
         
         var nextLevelLoad= SceneManager.GetActiveScene().buildIndex + 1;
         SceneManager.LoadScene(nextLevelLoad);
-
-        if (nextLevelLoad > PlayerPrefs.GetInt("level"))
-        {
-            PlayerPrefs.SetInt("level", nextLevelLoad);
-        }
     }
 
     public void QuitLevel()
@@ -71,12 +72,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartButton()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void ExitButton()
-    {
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
