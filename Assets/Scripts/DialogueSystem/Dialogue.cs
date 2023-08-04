@@ -12,7 +12,6 @@ public class Dialogue : ScriptableObject
     public bool isContainQuiz;
 }
 
-
 [System.Serializable]
 public class Message
 {

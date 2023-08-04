@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class Calculator : MonoBehaviour
+public class BinaryCalculator : MonoBehaviour
 {
     [SerializeField] private Text totalText;
     [FormerlySerializedAs("Total")] public int total = 0;

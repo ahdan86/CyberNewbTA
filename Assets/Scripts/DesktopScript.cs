@@ -2,6 +2,7 @@ using float_oat.Desktop90;
 using System.Collections;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DesktopScript : MonoBehaviour
@@ -20,20 +21,23 @@ public class DesktopScript : MonoBehaviour
 
     public bool isActive;
     public bool isInfected;
+    private bool _isPopupActive;
 
     [Header("Desktop Properties & UI")]
     [SerializeField] private ProgressBar infectVirusProgressBar;
     [SerializeField] private ProgressBar cleanVirusProgressBar;
     [SerializeField] private int computerId;
 
+    [FormerlySerializedAs("calculator")]
     [Header("AntiVirus Properties")]
-    [SerializeField] private Calculator calculator;
+    [SerializeField] private BinaryCalculator binaryCalculator;
     [SerializeField] private int targetNumber;
     [SerializeField] private Text targetText;
     [SerializeField] private int minNumber;
     [SerializeField] private int maxNumber;
     private Coroutine _antiVirusCoroutine;
     private Coroutine _virusCoroutine;
+    private Coroutine _popUpCoroutine;
 
     [Header("Player Properties")]
     [SerializeField] private Inventory inventory;
@@ -41,8 +45,8 @@ public class DesktopScript : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
 
     [SerializeField] private WindowController[] windowObjects;
-
-
+    [SerializeField] private WindowController popUpWindow;
+    
     private void Start()
     {
         DesktopEvent.current.onOpenDesktopUI.AddListener(OnOpenDesktopUI);
@@ -65,8 +69,33 @@ public class DesktopScript : MonoBehaviour
             {
                 contentTransform.GetComponent<Image>().color =
                     Color.Lerp(Color.blue, Color.red, Mathf.PingPong(Time.time * 1.5f, 1));
+                if (!_isPopupActive)
+                {
+                    _popUpCoroutine = StartCoroutine(ShowPopUpCoroutine());
+                    _isPopupActive = true;
+                }
+            }
+            else
+            {
+                if (_isPopupActive)
+                {
+                    if(popUpWindow.isActiveAndEnabled)
+                        popUpWindow.Close();
+                    if(_popUpCoroutine != null)
+                        StopCoroutine(_popUpCoroutine);
+                    _isPopupActive = false;
+                }
             }
         }
+    }
+
+    IEnumerator ShowPopUpCoroutine()
+    {
+        popUpWindow.Open();
+        yield return new WaitForSeconds(1.5f);
+        popUpWindow.Close();
+        yield return new WaitForSeconds(0.5f);
+        _isPopupActive = false;
     }
 
     private void SetPlayerMovement(bool status)
@@ -156,14 +185,18 @@ public class DesktopScript : MonoBehaviour
     {
         antiVirusWindowTransform.Find("Content").Find("Puzzle").Find("Submit Button")
             .GetComponent<Button>().interactable = false;
-        
         cleanVirusProgressBar.SetProgressActive(true);
+        foreach(BitToggle toggle in binaryCalculator.bitToggles)
+        {
+            toggle.GetComponent<Button>().interactable = false;
+        }
+        
         while (!cleanVirusProgressBar.IsProgressCompleted())
         {
             yield return null;
         }
 
-        if (calculator.total == targetNumber)
+        if (binaryCalculator.total == targetNumber)
         {
             if (isInfected)
             {
@@ -203,9 +236,14 @@ public class DesktopScript : MonoBehaviour
     {
         antiVirusWindowTransform.Find("Content").Find("Puzzle").Find("Submit Button")
             .GetComponent<Button>().interactable = true;
-        calculator.total = 0;
+        binaryCalculator.total = 0;
         
-        foreach(BitToggle toggle in calculator.bitToggles)
+        foreach(BitToggle toggle in binaryCalculator.bitToggles)
+        {
+            toggle.GetComponent<Button>().interactable = true;
+        }
+        
+        foreach(BitToggle toggle in binaryCalculator.bitToggles)
         {
             toggle.SetToggle(false);
         }
@@ -269,6 +307,7 @@ public class DesktopScript : MonoBehaviour
         isActive = true;
         computerId = id;
         isInfected = infected;
+        _isPopupActive = false;
 
         SetupDesktopUI(true);
 

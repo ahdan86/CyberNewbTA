@@ -20,25 +20,19 @@ public class Interactor : MonoBehaviour
         _colliderCount = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionRange, _colliders, 
             _interactionLayer);
 
-        if (_colliderCount > 0)
-        {
-            for (int i = 0; i < _colliderCount; i++)
-            {
+        if (_colliderCount > 0) {
+            for (int i = 0; i < _colliderCount; i++) {
                 _currentInteractable = _colliders[i].GetComponent<IInteractable>();
-                if (_currentInteractable != null)
-                {
+                if (_currentInteractable != null) {
                     _currentInteractable.SetUpPromptUI();
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
+                    if (Input.GetKeyDown(KeyCode.E)) {
                         _currentInteractable.Interact(this);
                     }
                 }
             }
         } 
-        else
-        {
-            if (_currentInteractable != null)
-            {
+        else {
+            if (_currentInteractable != null) {
                 _currentInteractable.CloseUI();
                 _currentInteractable = null;
             }

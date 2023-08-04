@@ -10,11 +10,11 @@ public class BitToggle : MonoBehaviour
 {
     [SerializeField] private int number;
     public event Action<int, bool> OnToggleChanged = delegate { };
-    private bool isEnabled = false;
+    private bool _isEnabled;
 
     private void Update()
     {
-        if (isEnabled)
+        if (_isEnabled)
             GetComponentInChildren<Text>().text = "1";
         else
             GetComponentInChildren<Text>().text = "0";
@@ -27,15 +27,15 @@ public class BitToggle : MonoBehaviour
 
     public void SetToggle(bool enabled)
     {
-        isEnabled = enabled;
+        _isEnabled = enabled;
     } 
 
     private void Awake()
     {
         GetComponent<Button>().onClick.AddListener(() =>
         {
-            isEnabled = !isEnabled;
-            HandleToggleChanged(isEnabled);
+            _isEnabled = !_isEnabled;
+            HandleToggleChanged(_isEnabled);
         });
     }
 }

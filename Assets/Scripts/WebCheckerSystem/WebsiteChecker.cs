@@ -26,6 +26,7 @@ public class WebsiteChecker : MonoBehaviour
     [SerializeField] private InputField webUrl;
     [SerializeField] private Toggle toggleOn;
     [SerializeField] private Text counterText;
+    [SerializeField] private Button submitButton;
     private Coroutine _counterCoroutine;
     
     [SerializeField] private GameObject loadingWebChecker;
@@ -51,7 +52,9 @@ public class WebsiteChecker : MonoBehaviour
                 .GroupBy(web => web.isPhising)
                 .ToDictionary(x => x.Key, z => z.ToArray());
         var phishingWebsites = splitWeb[true];
+        RandomizeArrayOrder(phishingWebsites);
         var nonPhishingWebsites = splitWeb[false];
+        RandomizeArrayOrder(nonPhishingWebsites);
         
         _websitesLinkedList = new LinkedList<Website>();
         for(int i = 0; i < phishWebCount; i++)
@@ -61,7 +64,7 @@ public class WebsiteChecker : MonoBehaviour
         
         if (_websitesLinkedList.Count > 0)
         {
-            RandomizeOrder(_websitesLinkedList);
+            RandomizeListOrder(_websitesLinkedList);
             _currentWebsiteNode = _websitesLinkedList.First;
             _currentWebsite = _currentWebsiteNode.Value;
         }
@@ -93,7 +96,11 @@ public class WebsiteChecker : MonoBehaviour
         webImage.sprite = _currentWebsite.webSprite;
         webBrand.text = _currentWebsite.brand;
         webUrl.text = _currentWebsite.url;
+        
         toggleOn.isOn = false;
+        submitButton.interactable = true;
+        toggleOn.interactable = true;
+        
         _counterCoroutine = StartCoroutine(CountDown());
     }
 
@@ -116,6 +123,8 @@ public class WebsiteChecker : MonoBehaviour
     public void Submit()
     {
         StopCoroutine(_counterCoroutine);
+        submitButton.interactable = false;
+        toggleOn.interactable = false;
         var toggleStatus = toggleOn.isOn;
         bool isAnswerCorrect = toggleStatus == _currentWebsite.isPhising;
 
@@ -164,7 +173,7 @@ public class WebsiteChecker : MonoBehaviour
         // browser.GetComponent<WebBrowser>().LoadMySite(link);
     }
 
-    static void RandomizeOrder<T>(LinkedList<T> linkedList)
+    static void RandomizeListOrder<T>(LinkedList<T> linkedList)
     {
         System.Random random = new System.Random();
         T[] array = linkedList.ToArray();
@@ -180,6 +189,18 @@ public class WebsiteChecker : MonoBehaviour
         foreach (var item in array)
         {
             linkedList.AddLast(item);
+        }
+    }
+    
+    static void RandomizeArrayOrder<T>(T[] array)
+    {
+        System.Random random = new System.Random();
+
+        // Fisher-Yates shuffle algorithm
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            int j = random.Next(i + 1);
+            (array[i], array[j]) = (array[j], array[i]);
         }
     }
 }
